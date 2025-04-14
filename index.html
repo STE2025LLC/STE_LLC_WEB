@@ -323,7 +323,7 @@
   <!-- BOTÓN VOLVER ARRIBA (nueva implementación) -->
   <button class="scroll-top-btn" onclick="scrollToTop()" id="scrollTopBtn">Volver Arriba</button>
 
-  <!-- POPUP DEL FORMULARIO DE CONTACTO -->
+  <!-- POPUP DEL FORMULARIO DE CONTACTO - ACTUALIZADO CON FORMSPREE -->
   <div id="formPopup">
     <div class="form-container">
       <h2 id="formTitle">Contáctenos</h2>
@@ -500,12 +500,11 @@
       }
     });
 
-    // Manejo del envío del formulario utilizando fetch (simulado)
+    // Manejo del envío del formulario con Formspree
     document.getElementById("contactForm").addEventListener("submit", function(e) {
       e.preventDefault();
       
       const form = e.target;
-      const formData = new FormData(form);
       const submitBtn = document.getElementById("submitBtn");
       const originalBtnText = submitBtn.textContent;
       
@@ -513,19 +512,13 @@
       submitBtn.textContent = translations[currentLanguage].sendingMessage;
       submitBtn.disabled = true;
       
-      // Simulación de envío (esta URL es solo de ejemplo; reemplázala si es necesario)
-      fetch("https://formsubmit.co/ajax/" + translations[currentLanguage].contactEmail, {
+      // Envío a Formspree
+      fetch(form.action, {
         method: "POST",
-        headers: { 
-          'Content-Type': 'application/json',
+        body: new FormData(form),
+        headers: {
           'Accept': 'application/json'
-        },
-        body: JSON.stringify({
-          name: formData.get("name"),
-          email: formData.get("email"),
-          message: formData.get("message"),
-          _subject: formData.get("_subject")
-        })
+        }
       })
       .then(response => {
         if (response.ok) {
@@ -533,11 +526,11 @@
           closeForm();
           form.reset();
         } else {
-          alert(translations[currentLanguage].errorMessage || "Error al enviar el mensaje.");
+          throw new Error('Network response was not ok');
         }
       })
       .catch(error => {
-        alert(translations[currentLanguage].errorMessage || "Error al enviar el mensaje.");
+        alert(translations[currentLanguage].errorMessage || "Error al enviar el mensaje. Por favor inténtalo de nuevo más tarde.");
         console.error("Error:", error);
       })
       .finally(() => {
@@ -549,12 +542,6 @@
     // Inicializar contenido al cargar la página
     document.addEventListener("DOMContentLoaded", function() {
       updateContent();
-      // Si en la URL hay un parámetro "success", se muestra la confirmación (opcional)
-      const urlParams = new URLSearchParams(window.location.search);
-      if (urlParams.has('success')) {
-        showConfirmation();
-        history.replaceState(null, '', window.location.pathname);
-      }
     });
   </script>
 </body>
