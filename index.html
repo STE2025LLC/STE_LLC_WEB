@@ -5,8 +5,86 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Sistemas de Trading Eficientes LLC</title>
   <style>
-    /* Aquí van todos tus estilos CSS tal como los tenías */
-    /* (omito el bloque aquí por espacio, pero puedes pegar el mismo bloque de estilos que ya tenías sin tocarlo) */
+    /* Aquí puedes incluir tus estilos CSS */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #0e1a2b;
+      color: white;
+      text-align: center;
+      padding: 2rem;
+    }
+    .lang-switch {
+      margin-top: 1rem;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+    }
+    section {
+      padding: 2rem;
+    }
+    .hero-image {
+      width: 100%;
+      max-height: 400px;
+      object-fit: cover;
+    }
+    ul {
+      list-style: disc;
+      padding-left: 2rem;
+    }
+    .footer-container {
+      background-color: #f1f1f1;
+      padding: 2rem;
+      position: relative;
+    }
+    .footer-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    .scroll-top-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      padding: 0.5rem 1rem;
+      background-color: #0e1a2b;
+      color: white;
+      border: none;
+      cursor: pointer;
+      display: none;
+    }
+    #formPopup {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+    }
+    .form-container {
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      max-width: 500px;
+      width: 90%;
+    }
+    .form-container input,
+    .form-container textarea {
+      width: 100%;
+      margin-bottom: 1rem;
+      padding: 0.5rem;
+    }
+    .form-container button {
+      padding: 0.5rem 1rem;
+      margin-right: 0.5rem;
+    }
   </style>
 </head>
 <body>
@@ -54,7 +132,7 @@
     <button class="scroll-top-btn" onclick="scrollToTop()" title="Volver arriba">Volver Arriba</button>
   </div>
 
-  <!-- FORMULARIO EMERGENTE (actualizado) -->
+  <!-- FORMULARIO EMERGENTE -->
   <div id="formPopup">
     <div class="form-container">
       <h2 id="formTitle">Contact Us</h2>
@@ -87,7 +165,7 @@
       document.getElementById("service4").innerText = isSpanish ? "Soluciones de asignación estratégica y backtesting." : "Strategic allocation and backtesting solutions.";
       document.getElementById("service5").innerText = isSpanish ? "Fortalecimiento psicológico adaptado al trading para lograr un alto rendimiento y resiliencia en entornos adversos." : "Psychological strengthening tailored to trading for high performance and resilience in adverse market conditions.";
       document.getElementById("contactTitle").innerText = isSpanish ? "Contacto" : "Contact";
-      document.getElementById("contactEmail").innerText = "contact@sistemasdetradingeficientes.com";
+      document.getElementById("contactEmail").innerText = "contacto@sistemasdetradingeficientes.com";
       document.getElementById("contactAddress").innerText = isSpanish ? "Dirección registrada: 30 N Gould St, Sheridan, WY 82801, EE.UU." : "Registered Address: 30 N Gould St, Sheridan, WY 82801, USA";
       document.getElementById("contactToggle").innerText = isSpanish ? "Formulario de contacto" : "Contact Form";
       document.getElementById("formTitle").innerText = isSpanish ? "Contáctenos" : "Contact Us";
@@ -122,7 +200,6 @@
       }
     });
 
-    // NUEVA FUNCIÓN PARA ENVIAR FORMULARIO SIN REDIRECCIÓN
     function handleFormSubmit(event) {
       event.preventDefault();
       const form = event.target;
@@ -137,24 +214,34 @@
         return response.json();
       })
       .then(result => {
-        form.innerHTML = `
+        showThankYouPopup();
+      })
+      .catch(error => {
+        showErrorPopup();
+      });
+    }
+
+    function showThankYouPopup() {
+      const formPopup = document.getElementById("formPopup");
+      formPopup.innerHTML = `
+        <div class="form-container">
           <h2>¡Gracias!</h2>
           <p>Tu mensaje ha sido enviado correctamente. Nos pondremos en contacto contigo lo antes posible.</p>
           <button onclick="closeForm()">Cerrar</button>
-        `;
-      })
-      .catch(error => {
-        form.innerHTML = `
+        </div>
+      `;
+    }
+
+    function showErrorPopup() {
+      const formPopup = document.getElementById("formPopup");
+      formPopup.innerHTML = `
+        <div class="form-container">
           <h2>Error</h2>
           <p>No se pudo enviar el mensaje. Intenta nuevamente más tarde o contáctanos por email.</p>
           <button onclick="closeForm()">Cerrar</button>
-        `;
-      });
+        </div>
+      `;
     }
   </script>
 </body>
 </html>
-
-
-
-
