@@ -327,12 +327,16 @@
   <div id="formPopup">
     <div class="form-container">
       <h2 id="formTitle">Contáctenos</h2>
-      <form id="contactForm" action="https://formspree.io/f/xwplygjp" method="POST">
-        <input type="hidden" name="_subject" value="Nuevo mensaje desde la web">
-        <input type="text" name="name" placeholder="Tu nombre" required>
-        <input type="email" name="email" placeholder="Tu email" required>
-        <textarea name="message" placeholder="Tu mensaje" required></textarea>
-        <button type="submit" id="submitBtn">Enviar mensaje</button>
+      <form id="contactForm">
+  <input type="text" name="name" placeholder="Tu nombre" required>
+  <input type="email" name="email" placeholder="Tu email" required>
+  <textarea name="message" placeholder="Tu mensaje" required></textarea>
+  <button type="submit">Enviar mensaje</button>
+</form>
+
+<!-- Mensaje de confirmación (oculto inicialmente) -->
+<div id="confirmation" style="display: none;">
+  <p>✅ Email enviado. Revisa tu bandeja de entrada.</p>
         <button type="button" onclick="closeForm()">Cancel</button>
       </form>
     </div>
