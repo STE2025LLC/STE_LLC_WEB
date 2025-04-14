@@ -5,7 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Sistemas de Trading Eficientes LLC</title>
   <style>
-    /* ESTILOS GENERALES */
+    /* ========================
+       ESTILOS GENERALES
+       ======================== */
     body {
       font-family: "Segoe UI", sans-serif;
       background-color: #f0f2f5;
@@ -133,7 +135,9 @@
       color: #999;
       font-size: 0.8rem;
     }
-    /* BOTÓN VOLVER ARRIBA */
+    /* -------------------------
+       BOTÓN VOLVER ARRIBA
+       ------------------------- */
     .scroll-top-btn {
       position: fixed;
       bottom: 20px;
@@ -172,7 +176,9 @@
         color: #1a1a2e;
       }
     }
-    /* POPUP DE FORMULARIO */
+    /* ------------------------
+       POPUP DEL FORMULARIO
+       ------------------------ */
     #formPopup {
       position: fixed;
       top: 0;
@@ -227,7 +233,9 @@
       color: #1a1a2e;
       border: 1px solid #ddd;
     }
-    /* POPUP DE CONFIRMACIÓN */
+    /* -------------------------
+       POPUP DE CONFIRMACIÓN
+       ------------------------- */
     .confirmation-popup {
       position: fixed;
       top: 0;
@@ -264,10 +272,12 @@
     }
   </style>
 </head>
-
 <body>
   <!-- BOTÓN PARA CAMBIAR IDIOMA -->
-  <button class="lang-switch" onclick="switchLang()">EN</button>
+  <!-- Ahora el botón muestra el código del idioma actual -->
+  <button class="lang-switch" onclick="switchLang()">
+    ES
+  </button>
 
   <!-- HEADER -->
   <header>
@@ -282,9 +292,8 @@
     <p id="aboutText">
       Sistemas de Trading Eficientes LLC es una empresa con sede en EE. UU. especializada en el desarrollo de estrategias de trading tanto manuales como algorítmicas, análisis de mercados, gestión de riesgo y psicología del trader, fundamentales para desarrollar una operativa rentable y consistente.
     </p>
-    <p id="aboutTextEs" style="display: none;">  
-      <!-- Este párrafo se intercambiará dinámicamente cuando se cambie de idioma -->
-    </p>
+    <!-- El párrafo alternativo para inglés se actualizará desde JavaScript -->
+    <p id="aboutTextEs" style="display: none;"></p>
   </section>
 
   <!-- SECCIÓN DE SERVICIOS -->
@@ -403,16 +412,16 @@
       }
     };
 
-    // Idioma predeterminado
+    // Idioma predeterminado (español)
     let currentLanguage = 'es';
 
-    // Función para actualizar los textos de la página
+    // Función para actualizar todos los textos de la web
     function updateContent() {
       const t = translations[currentLanguage];
       // Header
       document.getElementById("companyName").innerText = t.companyName;
       document.getElementById("tagline").innerText = t.tagline;
-      // Sección Sobre Nosotros
+      // Sección "Sobre Nosotros"
       document.getElementById("aboutTitle").innerText = t.aboutTitle;
       document.getElementById("aboutText").innerText = t.aboutText;
       // Sección Servicios
@@ -422,7 +431,7 @@
       document.getElementById("service3").innerText = t.service3;
       document.getElementById("service4").innerText = t.service4;
       document.getElementById("service5").innerText = t.service5;
-      // Contacto en Footer
+      // Footer y Contacto
       document.getElementById("contactTitle").innerText = t.contactTitle;
       document.getElementById("contactEmail").innerText = t.contactEmail;
       document.getElementById("contactAddress").innerText = t.contactAddress;
@@ -442,29 +451,29 @@
       document.getElementById("successMessage").innerText = t.successMessage;
       // Footer general
       document.getElementById("copyright").innerText = t.copyright;
-      // Botón volver arriba (si se desea actualizar su título o tooltip)
+      // Botón "Volver Arriba" (tooltip)
       document.querySelector('.scroll-top-btn').title = t.scrollTop;
     }
 
     // Función para alternar idioma
+    // Ahora el botón mostrará el código del idioma actual
     function switchLang() {
       currentLanguage = (currentLanguage === 'es') ? 'en' : 'es';
-      // Actualiza el botón de idioma (mostrando siempre la opción contraria)
-      document.querySelector('.lang-switch').innerText = (currentLanguage === 'es') ? "EN" : "ES";
+      // El botón mostrará el idioma actual
+      document.querySelector('.lang-switch').innerText = currentLanguage.toUpperCase();
       updateContent();
     }
 
-    // Función para mostrar/ocultar el formulario de contacto (popup)
+    // Función para mostrar/ocultar el formulario (popup)
     function toggleContactForm() {
       const formPopup = document.getElementById("formPopup");
       formPopup.style.display = "flex";
-      // Se actualizan los placeholders y textos según idioma
       const t = translations[currentLanguage];
       document.querySelector('#formPopup input[name="name"]').placeholder = t.placeholderName;
       document.querySelector('#formPopup input[name="email"]').placeholder = t.placeholderEmail;
       document.querySelector('#formPopup textarea').placeholder = t.placeholderMessage;
     }
-    
+
     function closeForm() {
       document.getElementById("formPopup").style.display = "none";
     }
@@ -478,7 +487,7 @@
       document.getElementById("confirmationPopup").style.display = "none";
     }
 
-    // Función para scroll hacia arriba
+    // Función para volver arriba
     function scrollToTop() {
       window.scrollTo({
         top: 0,
@@ -496,7 +505,7 @@
       }
     });
 
-    // Manejo del envío del formulario (utilizando Fetch API para simular el envío)
+    // Manejo del envío del formulario
     document.getElementById("contactForm").addEventListener("submit", function(e) {
       e.preventDefault();
       
@@ -509,7 +518,7 @@
       submitBtn.textContent = translations[currentLanguage].sendingMessage;
       submitBtn.disabled = true;
       
-      // Enviar formulario (simulación con timeout en este ejemplo)
+      // Simulación de envío con fetch (ajusta la URL según tus necesidades)
       fetch("https://formsubmit.co/ajax/" + translations[currentLanguage].contactEmail, {
         method: "POST",
         headers: { 
@@ -542,10 +551,10 @@
       });
     });
 
-    // Inicializar la web con el idioma por defecto
+    // Inicializar contenido al cargar el documento
     document.addEventListener("DOMContentLoaded", function() {
       updateContent();
-      // Comprobar si hay parámetro en URL para mostrar confirmación
+      // Si hay parámetro "success" en la URL, se muestra la confirmación
       const urlParams = new URLSearchParams(window.location.search);
       if (urlParams.has('success')) {
         showConfirmation();
