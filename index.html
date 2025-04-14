@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Sistemas de Trading Eficientes LLC</title>
   <style>
+    /* ESTILOS GENERALES */
     body {
       font-family: "Segoe UI", sans-serif;
       background-color: #f0f2f5;
@@ -59,6 +60,9 @@
       border-bottom: 2px solid #1a1a2e;
       padding-bottom: 10px;
     }
+    p {
+      color: #333;
+    }
     ul {
       list-style: none;
       padding-left: 0;
@@ -92,12 +96,7 @@
       margin: 0 auto;
       padding: 0 20px;
       color: white;
-    }
-    .footer-contact {
       text-align: center;
-      margin-bottom: 30px;
-      padding-bottom: 35px;
-      border-bottom: 1px solid rgba(255,255,255,0.15);
     }
     .footer-contact h3 {
       color: white;
@@ -122,9 +121,6 @@
     .contact-form-btn:hover {
       background-color: rgba(255,255,255,0.1);
     }
-    .footer-info {
-      text-align: center;
-    }
     .footer-address {
       color: #bbb;
       font-size: 0.8rem;
@@ -137,6 +133,7 @@
       color: #999;
       font-size: 0.8rem;
     }
+    /* BOTÓN VOLVER ARRIBA */
     .scroll-top-btn {
       position: fixed;
       bottom: 20px;
@@ -175,6 +172,7 @@
         color: #1a1a2e;
       }
     }
+    /* POPUP DE FORMULARIO */
     #formPopup {
       position: fixed;
       top: 0;
@@ -197,7 +195,6 @@
     #formPopup h2 {
       color: #1a1a2e;
       margin-top: 0;
-      border-bottom: none;
     }
     #formPopup input,
     #formPopup textarea {
@@ -206,32 +203,31 @@
       border-radius: 4px;
       width: 100%;
       box-sizing: border-box;
+      margin-bottom: 10px;
     }
     #formPopup textarea {
       resize: vertical;
       min-height: 100px;
     }
-    #formPopup button[type="submit"] {
-      background: #1a1a2e;
-      color: white;
-      border: none;
+    #formPopup button {
       padding: 12px;
       border-radius: 4px;
       cursor: pointer;
-      font-weight: bold;
       width: 100%;
+      border: none;
+      font-weight: bold;
       margin-top: 10px;
+    }
+    #formPopup button[type="submit"] {
+      background: #1a1a2e;
+      color: white;
     }
     #formPopup button[type="button"] {
       background: #f0f2f5;
       color: #1a1a2e;
       border: 1px solid #ddd;
-      padding: 12px;
-      border-radius: 4px;
-      cursor: pointer;
-      width: 100%;
-      margin-top: 5px;
     }
+    /* POPUP DE CONFIRMACIÓN */
     .confirmation-popup {
       position: fixed;
       top: 0;
@@ -260,32 +256,38 @@
     .confirmation-btn {
       background: #1a1a2e;
       color: white;
-      border: none;
       padding: 10px 20px;
+      border: none;
       border-radius: 4px;
       cursor: pointer;
       font-weight: bold;
     }
   </style>
 </head>
+
 <body>
+  <!-- BOTÓN PARA CAMBIAR IDIOMA -->
+  <button class="lang-switch" onclick="switchLang()">EN</button>
+
+  <!-- HEADER -->
   <header>
     <h1 id="companyName">Sistemas de Trading Eficientes LLC</h1>
     <p id="tagline">Trading Algorítmico y Manual</p>
-    <button class="lang-switch" onclick="switchLang()">EN</button>
   </header>
 
+  <!-- SECCIÓN HERO Y SOBRE NOSOTROS -->
   <section>
-    <img class="hero-image" src="https://raw.githubusercontent.com/SdTE-LLC/website/refs/heads/main/ImagenPortada.avif">
+    <img class="hero-image" src="https://raw.githubusercontent.com/SdTE-LLC/website/refs/heads/main/ImagenPortada.avif" alt="Hero Image">
     <h2 id="aboutTitle">Sobre Nosotros</h2>
-    <p id="aboutText" style="display: none;">
-      Sistemas de Trading Eficientes LLC is a US-based company specializing in the development of both manual and algorithmic trading strategies, market analysis, risk management, and trader psychology, fundamental to developing profitable and consistent trading.
-    </p>
-    <p id="aboutTextEs">
+    <p id="aboutText">
       Sistemas de Trading Eficientes LLC es una empresa con sede en EE. UU. especializada en el desarrollo de estrategias de trading tanto manuales como algorítmicas, análisis de mercados, gestión de riesgo y psicología del trader, fundamentales para desarrollar una operativa rentable y consistente.
+    </p>
+    <p id="aboutTextEs" style="display: none;">  
+      <!-- Este párrafo se intercambiará dinámicamente cuando se cambie de idioma -->
     </p>
   </section>
 
+  <!-- SECCIÓN DE SERVICIOS -->
   <section>
     <h2 id="servicesTitle">Nuestros Servicios</h2>
     <ul>
@@ -297,6 +299,7 @@
     </ul>
   </section>
 
+  <!-- FOOTER CON INFORMACIÓN DE CONTACTO -->
   <div class="footer-container">
     <div class="footer-content">
       <div class="footer-contact">
@@ -304,15 +307,16 @@
         <p id="contactEmail">contacto@sistemasdetradingeficientes.com</p>
         <button class="contact-form-btn" onclick="toggleContactForm()" id="contactToggle">Formulario de contacto</button>
       </div>
-
       <div class="footer-info">
         <p class="footer-address" id="contactAddress">Dirección registrada: 30 N Gould St, Sheridan, WY 82801, EE.UU.</p>
-        <p class="copyright">© 2025 Sistemas de Trading Eficientes LLC. All rights reserved</p>
+        <p class="copyright" id="copyright">© 2025 Sistemas de Trading Eficientes LLC. Todos los derechos reservados</p>
       </div>
     </div>
-    <button class="scroll-top-btn" onclick="scrollToTop()" id="scrollTopBtn" title="Volver arriba">Volver Arriba</button>
+    <!-- BOTÓN VOLVER ARRIBA -->
+    <button class="scroll-top-btn" onclick="scrollToTop()" title="Volver Arriba">Volver Arriba</button>
   </div>
 
+  <!-- POPUP DEL FORMULARIO DE CONTACTO -->
   <div id="formPopup">
     <div class="form-container">
       <h2 id="formTitle">Contáctenos</h2>
@@ -321,109 +325,160 @@
         <input type="text" name="name" placeholder="Tu nombre" required>
         <input type="email" name="email" placeholder="Tu email" required>
         <textarea name="message" placeholder="Tu mensaje" required></textarea>
-        <button type="submit" id="submitFormBtn">Enviar mensaje</button>
+        <button type="submit" id="submitBtn">Enviar mensaje</button>
         <button type="button" onclick="closeForm()">Cancelar</button>
       </form>
     </div>
   </div>
 
+  <!-- POPUP DE CONFIRMACIÓN -->
   <div class="confirmation-popup" id="confirmationPopup">
     <div class="confirmation-content">
-      <h2 id="confirmationTitle">¡Gracias!</h2>
-      <p id="confirmationMessage">Tu mensaje ha sido enviado correctamente. Nos pondremos en contacto contigo lo antes posible.</p>
-      <button class="confirmation-btn" onclick="closeConfirmation()" id="confirmationButton">Aceptar</button>
-      <h2 id="confirmationTitleEn" style="display: none;">Thank You!</h2>
-      <p id="confirmationMessageEn" style="display: none;">Your message has been sent successfully. We will contact you as soon as possible.</p>
-      <button class="confirmation-btn" onclick="closeConfirmation()" id="confirmationButtonEn" style="display: none;">OK</button>
+      <h2 id="confirmTitle">¡Gracias!</h2>
+      <p id="confirmMessage">Tu mensaje ha sido enviado correctamente. Nos pondremos en contacto contigo lo antes posible.</p>
+      <button class="confirmation-btn" onclick="closeConfirmation()" id="confirmBtn">Aceptar</button>
     </div>
   </div>
 
   <script>
-    // Configuración inicial en español
-    document.addEventListener('DOMContentLoaded', function() {
-      const urlParams = new URLSearchParams(window.location.search);
-      if (urlParams.has('success')) {
-        showConfirmation();
-        history.replaceState(null, '', window.location.pathname);
+    // Objeto de traducciones para inglés y español
+    const translations = {
+      en: {
+        companyName: "Sistemas de Trading Eficientes LLC",
+        tagline: "Algorithmic & Manual Trading",
+        aboutTitle: "About Us",
+        aboutText: "Sistemas de Trading Eficientes LLC is a US-based company specializing in the development of both manual and algorithmic trading strategies, market analysis, risk management, and trader psychology, which are all fundamental to developing profitable and consistent trading.",
+        servicesTitle: "Our Services",
+        service1: "Custom-built algorithmic and manual trading systems",
+        service2: "Risk management and performance analytics",
+        service3: "Market research and consulting",
+        service4: "Strategic allocation and backtesting solutions",
+        service5: "Psychological strengthening tailored to trading for high performance and resilience in adverse market conditions",
+        contactTitle: "Contact",
+        contactEmail: "contact@sistemasdetradingeficientes.com",
+        contactAddress: "Registered Address: 30 N Gould St, Sheridan, WY 82801, USA",
+        contactFormBtn: "Contact Form",
+        formTitle: "Contact Us",
+        placeholderName: "Your Name",
+        placeholderEmail: "Your Email",
+        placeholderMessage: "Your Message",
+        submitBtn: "Send Message",
+        cancelBtn: "Cancel",
+        sendingMessage: "Sending...",
+        successMessage: "Your message has been sent successfully!",
+        confirmBtn: "OK",
+        confirmTitle: "Thank you!",
+        confirmMessage: "Your message has been sent successfully. We will contact you as soon as possible.",
+        copyright: "© 2025 Sistemas de Trading Eficientes LLC. All rights reserved",
+        scrollTop: "Scroll to top"
+      },
+      es: {
+        companyName: "Sistemas de Trading Eficientes LLC",
+        tagline: "Trading Algorítmico y Manual",
+        aboutTitle: "Sobre Nosotros",
+        aboutText: "Sistemas de Trading Eficientes LLC es una empresa con sede en EE. UU. especializada en el desarrollo de estrategias de trading tanto manuales como algorítmicas, análisis de mercados, gestión de riesgo y psicología del trader, fundamentales para desarrollar una operativa rentable y consistente.",
+        servicesTitle: "Nuestros Servicios",
+        service1: "Sistemas de trading algorítmico y manual personalizados.",
+        service2: "Gestión de riesgos y análisis de rendimiento.",
+        service3: "Investigación de mercados y consultoría.",
+        service4: "Soluciones de asignación estratégica y backtesting.",
+        service5: "Fortalecimiento psicológico adaptado al trading para lograr un alto rendimiento y resiliencia en entornos adversos.",
+        contactTitle: "Contacto",
+        contactEmail: "contacto@sistemasdetradingeficientes.com",
+        contactAddress: "Dirección registrada: 30 N Gould St, Sheridan, WY 82801, EE.UU.",
+        contactFormBtn: "Formulario de contacto",
+        formTitle: "Contáctenos",
+        placeholderName: "Tu nombre",
+        placeholderEmail: "Tu email",
+        placeholderMessage: "Tu mensaje",
+        submitBtn: "Enviar mensaje",
+        cancelBtn: "Cancelar",
+        sendingMessage: "Enviando...",
+        successMessage: "¡Tu mensaje ha sido enviado con éxito!",
+        confirmBtn: "Aceptar",
+        confirmTitle: "¡Gracias!",
+        confirmMessage: "Tu mensaje ha sido enviado correctamente. Nos pondremos en contacto contigo lo antes posible.",
+        copyright: "© 2025 Sistemas de Trading Eficientes LLC. Todos los derechos reservados",
+        scrollTop: "Volver Arriba"
       }
-    });
+    };
 
-    function switchLang() {
-      const isSpanish = document.documentElement.lang === "es";
-      document.documentElement.lang = isSpanish ? "en" : "es";
-      document.querySelector(".lang-switch").innerText = isSpanish ? "EN" : "ES";
-      
-      updateTexts(isSpanish);
-    }
+    // Idioma predeterminado
+    let currentLanguage = 'es';
 
-    function updateTexts(isSpanish) {
-      // Contenido principal
-      document.getElementById("aboutText").style.display = isSpanish ? "none" : "block";
-      document.getElementById("aboutTextEs").style.display = isSpanish ? "block" : "none";
-      document.getElementById("tagline").innerText = isSpanish ? "Trading Algorítmico y Manual" : "Algorithmic & Manual Trading";
-      document.getElementById("aboutTitle").innerText = isSpanish ? "Sobre Nosotros" : "About Us";
-      document.getElementById("servicesTitle").innerText = isSpanish ? "Nuestros Servicios" : "Our Services";
-      document.getElementById("service1").innerText = isSpanish ? "Sistemas de trading algorítmico y manual personalizados." : "Custom-built algorithmic and manual trading systems.";
-      document.getElementById("service2").innerText = isSpanish ? "Gestión de riesgos y análisis de rendimiento." : "Risk management and performance analytics.";
-      document.getElementById("service3").innerText = isSpanish ? "Investigación de mercados y consultoría." : "Market research and consulting.";
-      document.getElementById("service4").innerText = isSpanish ? "Soluciones de asignación estratégica y backtesting." : "Strategic allocation and backtesting solutions.";
-      document.getElementById("service5").innerText = isSpanish ? "Fortalecimiento psicológico adaptado al trading para lograr un alto rendimiento y resiliencia en entornos adversos." : "Psychological strengthening tailored to trading for high performance and resilience in adverse market conditions.";
-      document.getElementById("contactTitle").innerText = isSpanish ? "Contacto" : "Contact";
-      document.getElementById("contactToggle").innerText = isSpanish ? "Formulario de contacto" : "Contact Form";
-      document.getElementById("scrollTopBtn").innerText = isSpanish ? "Volver Arriba" : "Back to top";
-      document.getElementById("scrollTopBtn").title = isSpanish ? "Volver arriba" : "Back to top";
-      
-      // Formulario
-      document.getElementById("formTitle").innerText = isSpanish ? "Contáctenos" : "Contact Us";
-      document.querySelector('#formPopup input[name="name"]').placeholder = isSpanish ? "Tu nombre" : "Your Name";
-      document.querySelector('#formPopup input[name="email"]').placeholder = isSpanish ? "Tu email" : "Your Email";
-      document.querySelector('#formPopup textarea').placeholder = isSpanish ? "Tu mensaje" : "Your Message";
-      document.getElementById("submitFormBtn").innerText = isSpanish ? "Enviar mensaje" : "Send Message";
-      document.querySelector('#formPopup button[type="button"]').innerText = isSpanish ? "Cancelar" : "Cancel";
-      
+    // Función para actualizar los textos de la página
+    function updateContent() {
+      const t = translations[currentLanguage];
+      // Header
+      document.getElementById("companyName").innerText = t.companyName;
+      document.getElementById("tagline").innerText = t.tagline;
+      // Sección Sobre Nosotros
+      document.getElementById("aboutTitle").innerText = t.aboutTitle;
+      document.getElementById("aboutText").innerText = t.aboutText;
+      // Sección Servicios
+      document.getElementById("servicesTitle").innerText = t.servicesTitle;
+      document.getElementById("service1").innerText = t.service1;
+      document.getElementById("service2").innerText = t.service2;
+      document.getElementById("service3").innerText = t.service3;
+      document.getElementById("service4").innerText = t.service4;
+      document.getElementById("service5").innerText = t.service5;
+      // Contacto en Footer
+      document.getElementById("contactTitle").innerText = t.contactTitle;
+      document.getElementById("contactEmail").innerText = t.contactEmail;
+      document.getElementById("contactAddress").innerText = t.contactAddress;
+      document.getElementById("contactToggle").innerText = t.contactFormBtn;
+      // Popup del formulario
+      document.getElementById("formTitle").innerText = t.formTitle;
+      document.querySelector('#formPopup input[name="name"]').placeholder = t.placeholderName;
+      document.querySelector('#formPopup input[name="email"]').placeholder = t.placeholderEmail;
+      document.querySelector('#formPopup textarea').placeholder = t.placeholderMessage;
+      document.getElementById("submitBtn").innerText = t.submitBtn;
       // Popup de confirmación
-      document.getElementById("confirmationTitle").style.display = isSpanish ? "block" : "none";
-      document.getElementById("confirmationMessage").style.display = isSpanish ? "block" : "none";
-      document.getElementById("confirmationButton").style.display = isSpanish ? "block" : "none";
-      document.getElementById("confirmationTitleEn").style.display = isSpanish ? "none" : "block";
-      document.getElementById("confirmationMessageEn").style.display = isSpanish ? "none" : "block";
-      document.getElementById("confirmationButtonEn").style.display = isSpanish ? "none" : "block";
+      document.getElementById("confirmBtn").innerText = t.confirmBtn;
+      document.getElementById("confirmTitle").innerText = t.confirmTitle;
+      document.getElementById("confirmMessage").innerText = t.confirmMessage;
+      // Mensajes del formulario
+      document.getElementById("sendingMessage").innerText = t.sendingMessage;
+      document.getElementById("successMessage").innerText = t.successMessage;
+      // Footer general
+      document.getElementById("copyright").innerText = t.copyright;
+      // Botón volver arriba (si se desea actualizar su título o tooltip)
+      document.querySelector('.scroll-top-btn').title = t.scrollTop;
     }
 
+    // Función para alternar idioma
+    function switchLang() {
+      currentLanguage = (currentLanguage === 'es') ? 'en' : 'es';
+      // Actualiza el botón de idioma (mostrando siempre la opción contraria)
+      document.querySelector('.lang-switch').innerText = (currentLanguage === 'es') ? "EN" : "ES";
+      updateContent();
+    }
+
+    // Función para mostrar/ocultar el formulario de contacto (popup)
     function toggleContactForm() {
-      const isSpanish = document.documentElement.lang === "es";
-      updateFormTexts(isSpanish);
-      document.getElementById("formPopup").style.display = "flex";
+      const formPopup = document.getElementById("formPopup");
+      formPopup.style.display = "flex";
+      // Se actualizan los placeholders y textos según idioma
+      const t = translations[currentLanguage];
+      document.querySelector('#formPopup input[name="name"]').placeholder = t.placeholderName;
+      document.querySelector('#formPopup input[name="email"]').placeholder = t.placeholderEmail;
+      document.querySelector('#formPopup textarea').placeholder = t.placeholderMessage;
     }
-
-    function updateFormTexts(isSpanish) {
-      document.getElementById("formTitle").innerText = isSpanish ? "Contáctenos" : "Contact Us";
-      document.querySelector('#formPopup input[name="name"]').placeholder = isSpanish ? "Tu nombre" : "Your Name";
-      document.querySelector('#formPopup input[name="email"]').placeholder = isSpanish ? "Tu email" : "Your Email";
-      document.querySelector('#formPopup textarea').placeholder = isSpanish ? "Tu mensaje" : "Your Message";
-      document.getElementById("submitFormBtn").innerText = isSpanish ? "Enviar mensaje" : "Send Message";
-      document.querySelector('#formPopup button[type="button"]').innerText = isSpanish ? "Cancelar" : "Cancel";
-    }
-
+    
     function closeForm() {
       document.getElementById("formPopup").style.display = "none";
     }
 
+    // Función para mostrar el popup de confirmación
     function showConfirmation() {
-      const isSpanish = document.documentElement.lang === "es";
-      document.getElementById("confirmationTitle").style.display = isSpanish ? "block" : "none";
-      document.getElementById("confirmationMessage").style.display = isSpanish ? "block" : "none";
-      document.getElementById("confirmationButton").style.display = isSpanish ? "block" : "none";
-      document.getElementById("confirmationTitleEn").style.display = isSpanish ? "none" : "block";
-      document.getElementById("confirmationMessageEn").style.display = isSpanish ? "none" : "block";
-      document.getElementById("confirmationButtonEn").style.display = isSpanish ? "none" : "block";
       document.getElementById("confirmationPopup").style.display = "flex";
     }
-
+    
     function closeConfirmation() {
       document.getElementById("confirmationPopup").style.display = "none";
     }
 
+    // Función para scroll hacia arriba
     function scrollToTop() {
       window.scrollTo({
         top: 0,
@@ -431,8 +486,9 @@
       });
     }
 
+    // Mostrar/ocultar botón "Volver arriba" al hacer scroll
     window.addEventListener('scroll', function() {
-      const scrollBtn = document.getElementById("scrollTopBtn");
+      const scrollBtn = document.querySelector('.scroll-top-btn');
       if (window.scrollY > 300 && window.innerWidth > 600) {
         scrollBtn.style.display = 'block';
       } else if (window.innerWidth > 600) {
@@ -440,41 +496,44 @@
       }
     });
 
+    // Manejo del envío del formulario (utilizando Fetch API para simular el envío)
     document.getElementById("contactForm").addEventListener("submit", function(e) {
       e.preventDefault();
-      const isSpanish = document.documentElement.lang === "es";
-      const submitBtn = document.getElementById("submitFormBtn");
-      const originalBtnText = isSpanish ? "Enviar mensaje" : "Send Message";
       
-      submitBtn.textContent = isSpanish ? "Enviando..." : "Sending...";
+      const form = e.target;
+      const formData = new FormData(form);
+      const submitBtn = document.getElementById("submitBtn");
+      const originalBtnText = submitBtn.textContent;
+      
+      // Cambiar el texto del botón a "Sending..." / "Enviando..."
+      submitBtn.textContent = translations[currentLanguage].sendingMessage;
       submitBtn.disabled = true;
-
-      fetch("https://formsubmit.co/ajax/contacto@sistemasdetradingeficientes.com", {
+      
+      // Enviar formulario (simulación con timeout en este ejemplo)
+      fetch("https://formsubmit.co/ajax/" + translations[currentLanguage].contactEmail, {
         method: "POST",
         headers: { 
           'Content-Type': 'application/json',
           'Accept': 'application/json'
         },
         body: JSON.stringify({
-          name: this.name.value,
-          email: this.email.value,
-          message: this.message.value,
-          _subject: "Nuevo mensaje desde la web"
+          name: formData.get("name"),
+          email: formData.get("email"),
+          message: formData.get("message"),
+          _subject: formData.get("_subject")
         })
       })
       .then(response => {
         if (response.ok) {
           showConfirmation();
           closeForm();
-          this.reset();
+          form.reset();
         } else {
-          throw new Error("Error en el envío");
+          alert(translations[currentLanguage].errorMessage);
         }
       })
       .catch(error => {
-        alert(isSpanish ? 
-          "Hubo un error al enviar el mensaje. Por favor, inténtalo de nuevo más tarde." : 
-          "There was an error sending your message. Please try again later.");
+        alert(translations[currentLanguage].errorMessage);
         console.error("Error:", error);
       })
       .finally(() => {
@@ -482,6 +541,44 @@
         submitBtn.disabled = false;
       });
     });
+
+    // Inicializar la web con el idioma por defecto
+    document.addEventListener("DOMContentLoaded", function() {
+      updateContent();
+      // Comprobar si hay parámetro en URL para mostrar confirmación
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.has('success')) {
+        showConfirmation();
+        history.replaceState(null, '', window.location.pathname);
+      }
+    });
   </script>
+
+  <!-- BOTÓN VOLVER ARRIBA -->
+  <button class="scroll-top-btn" onclick="scrollToTop()" title="Volver Arriba">Volver Arriba</button>
+
+  <!-- POPUP DEL FORMULARIO DE CONTACTO -->
+  <div id="formPopup">
+    <div class="form-container">
+      <h2 id="formTitle">Contáctenos</h2>
+      <form id="contactForm">
+        <input type="hidden" name="_subject" value="Nuevo mensaje desde la web">
+        <input type="text" name="name" placeholder="Tu nombre" required>
+        <input type="email" name="email" placeholder="Tu email" required>
+        <textarea name="message" placeholder="Tu mensaje" required></textarea>
+        <button type="submit" id="submitBtn">Enviar mensaje</button>
+        <button type="button" onclick="closeForm()">Cancelar</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- POPUP DE CONFIRMACIÓN -->
+  <div class="confirmation-popup" id="confirmationPopup">
+    <div class="confirmation-content">
+      <h2 id="confirmTitle">¡Gracias!</h2>
+      <p id="confirmMessage">Tu mensaje ha sido enviado correctamente. Nos pondremos en contacto contigo lo antes posible.</p>
+      <button class="confirmation-btn" onclick="closeConfirmation()" id="confirmBtn">Aceptar</button>
+    </div>
+  </div>
 </body>
 </html>
