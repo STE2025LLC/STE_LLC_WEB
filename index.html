@@ -46,7 +46,7 @@
       border-radius: 5px;
       font-weight: bold;
       transition: all 0.3s ease;
-      z-index: 100;  /* Aseguramos que esté por encima de otros elementos */
+      z-index: 100;
     }
     .lang-switch:hover {
       background-color: #1a1a2e;
@@ -321,7 +321,7 @@
       </div>
     </div>
     <!-- BOTÓN VOLVER ARRIBA -->
-    <button class="scroll-top-btn" onclick="scrollToTop()" title="Volver Arriba">Volver Arriba</button>
+    <button class="scroll-top-btn" onclick="scrollToTop()" title="Volver Arriba">Scroll to top</button>
   </div>
 
   <!-- POPUP DEL FORMULARIO DE CONTACTO -->
@@ -334,7 +334,7 @@
         <input type="email" name="email" placeholder="Tu email" required>
         <textarea name="message" placeholder="Tu mensaje" required></textarea>
         <button type="submit" id="submitBtn">Enviar mensaje</button>
-        <button type="button" onclick="closeForm()">Cancelar</button>
+        <button type="button" onclick="closeForm()">Cancel</button>
       </form>
     </div>
   </div>
@@ -441,6 +441,8 @@
       document.querySelector('#formPopup input[name="email"]').placeholder = t.placeholderEmail;
       document.querySelector('#formPopup textarea').placeholder = t.placeholderMessage;
       document.getElementById("submitBtn").innerText = t.submitBtn;
+      // Actualizamos el botón "Cancelar" en el popup
+      document.querySelector('#formPopup button[type="button"]').innerText = t.cancelBtn;
       // Popup de confirmación
       document.getElementById("confirmBtn").innerText = t.confirmBtn;
       document.getElementById("confirmTitle").innerText = t.confirmTitle;
@@ -450,8 +452,10 @@
       document.getElementById("successMessage").innerText = t.successMessage;
       // Footer general
       document.getElementById("copyright").innerText = t.copyright;
-      // Botón "Volver Arriba" (tooltip)
-      document.querySelector('.scroll-top-btn').title = t.scrollTop;
+      // Botón "Volver Arriba": actualizamos tooltip y texto interno
+      const scrollBtn = document.querySelector('.scroll-top-btn');
+      scrollBtn.title = t.scrollTop;
+      scrollBtn.innerText = t.scrollTop;
     }
 
     // Función para alternar idioma y actualizar el contenido
@@ -515,7 +519,7 @@
       submitBtn.textContent = translations[currentLanguage].sendingMessage;
       submitBtn.disabled = true;
       
-      // Simulación de envío (esta URL es solo de ejemplo; reemplázala por la que necesites)
+      // Simulación de envío (esta URL es solo de ejemplo; reemplázala si es necesario)
       fetch("https://formsubmit.co/ajax/" + translations[currentLanguage].contactEmail, {
         method: "POST",
         headers: { 
@@ -561,7 +565,7 @@
   </script>
 
   <!-- BOTÓN VOLVER ARRIBA -->
-  <button class="scroll-top-btn" onclick="scrollToTop()" title="Volver Arriba">Volver Arriba</button>
+  <button class="scroll-top-btn" onclick="scrollToTop()" title="Volver Arriba">Scroll to top</button>
 
   <!-- POPUP DEL FORMULARIO DE CONTACTO -->
   <div id="formPopup">
@@ -573,7 +577,7 @@
         <input type="email" name="email" placeholder="Tu email" required>
         <textarea name="message" placeholder="Tu mensaje" required></textarea>
         <button type="submit" id="submitBtn">Enviar mensaje</button>
-        <button type="button" onclick="closeForm()">Cancelar</button>
+        <button type="button" onclick="closeForm()">Cancel</button>
       </form>
     </div>
   </div>
