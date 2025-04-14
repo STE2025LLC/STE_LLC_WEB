@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sistemas de Trading Eficientes LLC</title>
   <style>
     body {
@@ -339,17 +339,14 @@
   </div>
 
   <script>
-    // Función para cambiar idioma
     function switchLang() {
       const isSpanish = document.documentElement.lang === "es";
       document.documentElement.lang = isSpanish ? "en" : "es";
 
-      // Actualizar textos principales
       document.getElementById("aboutText").style.display = isSpanish ? "none" : "block";
       document.getElementById("aboutTextEs").style.display = isSpanish ? "block" : "none";
       document.querySelector(".lang-switch").innerText = isSpanish ? "EN" : "ES";
       
-      // Actualizar todos los textos traducibles
       document.getElementById("companyName").innerText = "Sistemas de Trading Eficientes LLC";
       document.getElementById("tagline").innerText = isSpanish ? "Trading Algorítmico y Manual" : "Algorithmic & Manual Trading";
       document.getElementById("aboutTitle").innerText = isSpanish ? "Sobre Nosotros" : "About Us";
@@ -367,14 +364,12 @@
       document.getElementById("scrollTopBtn").innerText = isSpanish ? "Volver Arriba" : "Back to top";
       document.getElementById("scrollTopBtn").title = isSpanish ? "Volver arriba" : "Back to top";
       
-      // Actualizar formulario
       document.querySelector('#formPopup input[name="name"]').placeholder = isSpanish ? "Tu nombre" : "Your Name";
       document.querySelector('#formPopup input[name="email"]').placeholder = isSpanish ? "Tu email" : "Your Email";
       document.querySelector('#formPopup textarea').placeholder = isSpanish ? "Tu mensaje" : "Your Message";
       document.getElementById("submitFormBtn").innerText = isSpanish ? "Enviar mensaje" : "Send Message";
       document.querySelector('#formPopup button[type="button"]').innerText = isSpanish ? "Cancelar" : "Cancel";
       
-      // Actualizar popup de confirmación
       document.getElementById("confirmationTitle").style.display = isSpanish ? "block" : "none";
       document.getElementById("confirmationMessage").style.display = isSpanish ? "block" : "none";
       document.getElementById("confirmationButton").style.display = isSpanish ? "block" : "none";
@@ -383,7 +378,6 @@
       document.getElementById("confirmationButtonEn").style.display = isSpanish ? "none" : "block";
     }
 
-    // Funciones auxiliares
     function toggleContactForm() {
       document.getElementById("formPopup").style.display = "flex";
     }
@@ -407,7 +401,6 @@
       });
     }
 
-    // Mostrar/ocultar botón "Volver arriba"
     window.addEventListener('scroll', function() {
       const scrollBtn = document.getElementById("scrollTopBtn");
       if (window.scrollY > 300 && window.innerWidth > 600) {
@@ -417,14 +410,12 @@
       }
     });
 
-    // Manejo del formulario (corregido)
     document.getElementById("contactForm").addEventListener("submit", function(e) {
       e.preventDefault();
       const isSpanish = document.documentElement.lang === "es";
       const submitBtn = document.getElementById("submitFormBtn");
       const originalBtnText = isSpanish ? "Enviar mensaje" : "Send Message";
       
-      // Texto de carga correcto según idioma
       submitBtn.textContent = isSpanish ? "Enviando..." : "Sending...";
       submitBtn.disabled = true;
 
@@ -462,7 +453,6 @@
       });
     });
 
-    // Inicialización
     document.addEventListener('DOMContentLoaded', function() {
       const urlParams = new URLSearchParams(window.location.search);
       if (urlParams.has('success')) {
