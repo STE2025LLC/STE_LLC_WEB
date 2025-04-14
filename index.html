@@ -31,6 +31,7 @@
       margin-top: 10px;
       color: #bbb;
     }
+    /* Botón para cambiar idioma */
     .lang-switch {
       position: absolute;
       top: 20px;
@@ -87,6 +88,9 @@
       border-radius: 5px;
       box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     }
+    /* ========================
+       FOOTER & CONTACTO
+       ======================== */
     .footer-container {
       background-color: #1a1a2e;
       padding: 30px 0 20px;
@@ -273,11 +277,8 @@
   </style>
 </head>
 <body>
-  <!-- BOTÓN PARA CAMBIAR IDIOMA -->
-  <!-- Ahora el botón muestra el código del idioma actual -->
-  <button class="lang-switch" onclick="switchLang()">
-    ES
-  </button>
+  <!-- BOTÓN DE CAMBIO DE IDIOMA (siempre visible en la esquina superior derecha) -->
+  <button class="lang-switch" onclick="switchLang()">EN</button>
 
   <!-- HEADER -->
   <header>
@@ -287,12 +288,12 @@
 
   <!-- SECCIÓN HERO Y SOBRE NOSOTROS -->
   <section>
-    <img class="hero-image" src="https://raw.githubusercontent.com/SdTE-LLC/website/refs/heads/main/ImagenPortada.avif" alt="Hero Image">
+    <img class="hero-image" src="https://raw.githubusercontent.com/SdTE-LLC/website/refs/heads/main/ImagenPortada.avif" alt="Imagen Portada">
     <h2 id="aboutTitle">Sobre Nosotros</h2>
     <p id="aboutText">
       Sistemas de Trading Eficientes LLC es una empresa con sede en EE. UU. especializada en el desarrollo de estrategias de trading tanto manuales como algorítmicas, análisis de mercados, gestión de riesgo y psicología del trader, fundamentales para desarrollar una operativa rentable y consistente.
     </p>
-    <!-- El párrafo alternativo para inglés se actualizará desde JavaScript -->
+    <!-- Aquí se podría utilizar un párrafo alternativo si fuera necesario -->
     <p id="aboutTextEs" style="display: none;"></p>
   </section>
 
@@ -308,7 +309,7 @@
     </ul>
   </section>
 
-  <!-- FOOTER CON INFORMACIÓN DE CONTACTO -->
+  <!-- FOOTER: CONTACTO Y DATOS -->
   <div class="footer-container">
     <div class="footer-content">
       <div class="footer-contact">
@@ -350,13 +351,13 @@
   </div>
 
   <script>
-    // Objeto de traducciones para inglés y español
+    // Objeto de traducciones para inglés y español.
     const translations = {
       en: {
         companyName: "Sistemas de Trading Eficientes LLC",
         tagline: "Algorithmic & Manual Trading",
         aboutTitle: "About Us",
-        aboutText: "Sistemas de Trading Eficientes LLC is a US-based company specializing in the development of both manual and algorithmic trading strategies, market analysis, risk management, and trader psychology, which are all fundamental to developing profitable and consistent trading.",
+        aboutText: "Sistemas de Trading Eficientes LLC is a US-based company specializing in the development of both manual and algorithmic trading strategies, market analysis, risk management, and trader psychology – all essential for consistent and profitable trading.",
         servicesTitle: "Our Services",
         service1: "Custom-built algorithmic and manual trading systems",
         service2: "Risk management and performance analytics",
@@ -424,7 +425,7 @@
       // Sección "Sobre Nosotros"
       document.getElementById("aboutTitle").innerText = t.aboutTitle;
       document.getElementById("aboutText").innerText = t.aboutText;
-      // Sección Servicios
+      // Sección de Servicios
       document.getElementById("servicesTitle").innerText = t.servicesTitle;
       document.getElementById("service1").innerText = t.service1;
       document.getElementById("service2").innerText = t.service2;
@@ -455,25 +456,24 @@
       document.querySelector('.scroll-top-btn').title = t.scrollTop;
     }
 
-    // Función para alternar idioma
-    // Ahora el botón mostrará el código del idioma actual
+    // Función para alternar idioma y actualizar el contenido
     function switchLang() {
       currentLanguage = (currentLanguage === 'es') ? 'en' : 'es';
-      // El botón mostrará el idioma actual
+      // Actualiza el texto del botón para reflejar el idioma actual (muestra siempre el código del idioma actual)
       document.querySelector('.lang-switch').innerText = currentLanguage.toUpperCase();
       updateContent();
     }
 
-    // Función para mostrar/ocultar el formulario (popup)
+    // Función para mostrar/ocultar el formulario de contacto (popup)
     function toggleContactForm() {
       const formPopup = document.getElementById("formPopup");
       formPopup.style.display = "flex";
+      // Actualiza placeholders según idioma activo
       const t = translations[currentLanguage];
       document.querySelector('#formPopup input[name="name"]').placeholder = t.placeholderName;
       document.querySelector('#formPopup input[name="email"]').placeholder = t.placeholderEmail;
       document.querySelector('#formPopup textarea').placeholder = t.placeholderMessage;
     }
-
     function closeForm() {
       document.getElementById("formPopup").style.display = "none";
     }
@@ -482,7 +482,6 @@
     function showConfirmation() {
       document.getElementById("confirmationPopup").style.display = "flex";
     }
-    
     function closeConfirmation() {
       document.getElementById("confirmationPopup").style.display = "none";
     }
@@ -495,7 +494,7 @@
       });
     }
 
-    // Mostrar/ocultar botón "Volver arriba" al hacer scroll
+    // Mostrar/ocultar botón "Volver Arriba" al hacer scroll
     window.addEventListener('scroll', function() {
       const scrollBtn = document.querySelector('.scroll-top-btn');
       if (window.scrollY > 300 && window.innerWidth > 600) {
@@ -505,7 +504,7 @@
       }
     });
 
-    // Manejo del envío del formulario
+    // Manejo del envío del formulario utilizando fetch (simulado)
     document.getElementById("contactForm").addEventListener("submit", function(e) {
       e.preventDefault();
       
@@ -514,11 +513,11 @@
       const submitBtn = document.getElementById("submitBtn");
       const originalBtnText = submitBtn.textContent;
       
-      // Cambiar el texto del botón a "Sending..." / "Enviando..."
+      // Cambia el texto del botón a "Sending..." / "Enviando..."
       submitBtn.textContent = translations[currentLanguage].sendingMessage;
       submitBtn.disabled = true;
       
-      // Simulación de envío con fetch (ajusta la URL según tus necesidades)
+      // Simulación de envío con fetch (ajusta la URL según necesites)
       fetch("https://formsubmit.co/ajax/" + translations[currentLanguage].contactEmail, {
         method: "POST",
         headers: { 
@@ -551,7 +550,7 @@
       });
     });
 
-    // Inicializar contenido al cargar el documento
+    // Inicializar contenido al cargar la página
     document.addEventListener("DOMContentLoaded", function() {
       updateContent();
       // Si hay parámetro "success" en la URL, se muestra la confirmación
