@@ -320,8 +320,8 @@
         <p class="copyright" id="copyright">© 2025 Sistemas de Trading Eficientes LLC. Todos los derechos reservados</p>
       </div>
     </div>
-    <!-- BOTÓN VOLVER ARRIBA -->
-    <button class="scroll-top-btn" onclick="scrollToTop()" title="Volver Arriba">Scroll to top</button>
+    <!-- BOTÓN VOLVER ARRIBA (sin texto por defecto; se asigna desde JavaScript) -->
+    <button class="scroll-top-btn" onclick="scrollToTop()" title=""></button>
   </div>
 
   <!-- POPUP DEL FORMULARIO DE CONTACTO -->
@@ -564,31 +564,5 @@
     });
   </script>
 
-  <!-- BOTÓN VOLVER ARRIBA -->
-  <button class="scroll-top-btn" onclick="scrollToTop()" title="Volver Arriba">Scroll to top</button>
-
-  <!-- POPUP DEL FORMULARIO DE CONTACTO -->
-  <div id="formPopup">
-    <div class="form-container">
-      <h2 id="formTitle">Contáctenos</h2>
-      <form id="contactForm">
-        <input type="hidden" name="_subject" value="Nuevo mensaje desde la web">
-        <input type="text" name="name" placeholder="Tu nombre" required>
-        <input type="email" name="email" placeholder="Tu email" required>
-        <textarea name="message" placeholder="Tu mensaje" required></textarea>
-        <button type="submit" id="submitBtn">Enviar mensaje</button>
-        <button type="button" onclick="closeForm()">Cancel</button>
-      </form>
-    </div>
-  </div>
-
-  <!-- POPUP DE CONFIRMACIÓN -->
-  <div class="confirmation-popup" id="confirmationPopup">
-    <div class="confirmation-content">
-      <h2 id="confirmTitle">¡Gracias!</h2>
-      <p id="confirmMessage">Tu mensaje ha sido enviado correctamente. Nos pondremos en contacto contigo lo antes posible.</p>
-      <button class="confirmation-btn" onclick="closeConfirmation()" id="confirmBtn">Aceptar</button>
-    </div>
-  </div>
 </body>
 </html>
