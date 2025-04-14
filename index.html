@@ -139,65 +139,47 @@
       color: #999;
       font-size: 0.8rem;
     }
-   /* BOTÓN VOLVER ARRIBA */
-.scroll-top-btn {
+    /* -------------------------
+       BOTÓN VOLVER ARRIBA
+       ------------------------- */
+    .scroll-top-btn {
       position: fixed;
       bottom: 20px;
       right: 20px;
-      background-color: #1a1a2e;
-      color: white;
-      border: none;
+      /* Con fondo claro para destacar sobre el fondo oscuro */
+      background-color: #fff;  
+      color: #1a1a2e;
+      border: 2px solid #1a1a2e;
       padding: 10px 20px;
       font-size: 0.9rem;
       font-weight: bold;
       cursor: pointer;
-      display: none;
+      display: block; /* Lo mostramos siempre para comprobar su visibilidad */
       transition: all 0.3s ease;
       z-index: 1000;
       border-radius: 20px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
     }
-
     .scroll-top-btn:hover {
-      background-color: #2a2a4e;
+      background-color: #1a1a2e;
+      color: #fff;
       transform: scale(1.05);
     }
-
-    /* VERSIÓN MÓVIL */
     @media (max-width: 600px) {
       .scroll-top-btn {
         position: static;
-        display: block !important;
+        display: block;
         margin: 20px auto 0;
         padding: 8px 16px;
         font-size: 0.8rem;
         border-radius: 15px;
         box-shadow: none;
-        background-color: white;
-        color: #1a1a2e;
-      }
-
-      .scroll-top-btn:hover {
-        background-color: #f0f2f5;
-        color: #1a1a2e;
-      }
-    }
-
-    @media (max-width: 600px) {
-      .scroll-top-btn {
-        position: static;
-        display: block !important;
-        margin: 20px auto 0;
-        padding: 8px 16px;
-        font-size: 0.8rem;
-        border-radius: 15px;
-        box-shadow: none;
-        background-color: white;
+        background-color: #fff;
         color: #1a1a2e;
       }
       .scroll-top-btn:hover {
-        background-color: #f0f2f5;
-        color: #1a1a2e;
+        background-color: #1a1a2e;
+        color: #fff;
       }
     }
     /* ------------------------
@@ -340,7 +322,7 @@
         <p class="copyright" id="copyright">© 2025 Sistemas de Trading Eficientes LLC. Todos los derechos reservados</p>
       </div>
     </div>
-    <!-- BOTÓN VOLVER ARRIBA (sin texto por defecto; se asigna desde JavaScript) -->
+    <!-- BOTÓN VOLVER ARRIBA (ahora siempre visible para facilitar la visualización) -->
     <button class="scroll-top-btn" onclick="scrollToTop()" title=""></button>
   </div>
 
@@ -516,14 +498,11 @@
       });
     }
 
-    // Mostrar/ocultar botón "Volver Arriba" al hacer scroll
+    // En este ejemplo, eliminamos la condición de scroll para que el botón siempre se vea.
+    // (Si deseas la funcionalidad de "aparecer al hacer scroll", puedes restaurar la condición.)
     window.addEventListener('scroll', function() {
       const scrollBtn = document.querySelector('.scroll-top-btn');
-      if (window.scrollY > 300 && window.innerWidth > 600) {
-        scrollBtn.style.display = 'block';
-      } else if (window.innerWidth > 600) {
-        scrollBtn.style.display = 'none';
-      }
+      scrollBtn.style.display = 'block';
     });
 
     // Manejo del envío del formulario utilizando fetch (simulado)
