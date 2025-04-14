@@ -2,122 +2,189 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Sistemas de Trading Eficientes LLC</title>
   <style>
     body {
       font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
-      background: #f8f8f8;
-      color: #333;
     }
 
-    header {
-      background-color: #0d0d0d;
+    header, nav, main, footer {
+      padding: 20px;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    nav {
+      background-color: #111;
       color: white;
-      padding: 1rem;
-      text-align: center;
+      padding: 10px 20px;
+    }
+
+    nav a {
+      color: white;
+      margin-right: 15px;
+      text-decoration: none;
     }
 
     section {
-      padding: 2rem;
+      margin-bottom: 40px;
     }
 
-    footer {
-      background-color: #0d0d0d;
-      color: white;
-      text-align: center;
-      padding: 1rem;
+    h1, h2 {
+      color: #333;
     }
 
     form {
-      max-width: 500px;
-      margin: 0 auto;
       display: flex;
       flex-direction: column;
-      gap: 1rem;
+      gap: 10px;
     }
 
     input, textarea {
-      padding: 0.5rem;
+      padding: 10px;
+      font-size: 1rem;
       border: 1px solid #ccc;
-      border-radius: 4px;
+      border-radius: 5px;
     }
 
     button {
-      padding: 0.7rem;
+      padding: 10px;
       background-color: #0077cc;
       color: white;
       border: none;
-      border-radius: 4px;
+      border-radius: 5px;
       cursor: pointer;
     }
 
+    /* Popup de confirmación */
     .popup {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background-color: rgba(0,0,0,0.6);
       display: none;
-      align-items: center;
-      justify-content: center;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #f0f0f0;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
       z-index: 1000;
     }
 
-    .popup-content {
-      background: white;
-      padding: 2rem;
-      border-radius: 8px;
-      text-align: center;
+    .popup.show {
+      display: block;
+    }
+
+    .overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: rgba(0,0,0,0.5);
+      z-index: 999;
+    }
+
+    .overlay.show {
+      display: block;
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Sistemas de Trading Eficientes LLC</h1>
-  </header>
 
-  <section>
-    <h2>Contáctanos</h2>
-    <form id="contact-form">
-      <input type="text" name="name" placeholder="Tu nombre" required>
-      <input type="email" name="email" placeholder="Tu correo electrónico" required>
-      <textarea name="message" placeholder="Escribe tu mensaje" rows="5" required></textarea>
-      <button type="submit">Enviar mensaje</button>
-    </form>
-  </section>
+  <nav>
+    <a href="#inicio">Inicio</a>
+    <a href="#sobre">Sobre nosotros</a>
+    <a href="#servicios">Servicios</a>
+    <a href="#contacto">Contacto</a>
+  </nav>
 
-  <div class="popup" id="popup">
-    <div class="popup-content">
-      <p><strong>¡Gracias!</strong><br>Tu mensaje ha sido enviado correctamente. Nos pondremos en contacto contigo lo antes posible.</p>
-      <button onclick="closePopup()">Cerrar</button>
-    </div>
-  </div>
+  <main>
+    <section id="inicio">
+      <h1>Sistemas de Trading Eficientes LLC</h1>
+      <p>Especialistas en estrategias de trading algorítmico, gestión del riesgo y análisis de mercados financieros.</p>
+    </section>
+
+    <section id="sobre">
+      <h2>Sobre nosotros</h2>
+      <p>Somos una empresa registrada en EE. UU. que combina conocimiento estadístico, psicología del trading y gestión profesional del riesgo para lograr rentabilidad sostenida en los mercados financieros.</p>
+    </section>
+
+    <section id="servicios">
+      <h2>Servicios</h2>
+      <ul>
+        <li>Desarrollo de estrategias de trading automatizadas</li>
+        <li>Asesoría en gestión del riesgo</li>
+        <li>Entrenamiento en psicología del trading</li>
+        <li>Estudios de mercado personalizados</li>
+      </ul>
+    </section>
+
+    <section id="contacto">
+      <h2>Contacto</h2>
+      <form id="contactForm">
+        <input type="text" name="name" placeholder="Nombre" required />
+        <input type="email" name="email" placeholder="Correo electrónico" required />
+        <textarea name="message" rows="5" placeholder="Mensaje" required></textarea>
+        <button type="submit">Enviar mensaje</button>
+      </form>
+    </section>
+  </main>
 
   <footer>
     <p>&copy; 2025 Sistemas de Trading Eficientes LLC</p>
   </footer>
 
-  <script>
-    const form = document.getElementById('contact-form');
-    const popup = document.getElementById('popup');
+  <!-- Overlay y Popup -->
+  <div class="overlay" id="overlay"></div>
+  <div class="popup" id="popup">
+    <p><strong>¡Gracias!</strong><br>
+    Tu mensaje ha sido enviado correctamente. Nos pondremos en contacto contigo lo antes posible.</p>
+    <button onclick="closePopup()">Cerrar</button>
+  </div>
 
-    form.addEventListener('submit', function (e) {
+  <script>
+    const form = document.getElementById("contactForm");
+    const popup = document.getElementById("popup");
+    const overlay = document.getElementById("overlay");
+
+    form.addEventListener("submit", function (e) {
       e.preventDefault();
 
-      // Simulación de envío (puedes integrar backend real aquí si quieres)
-      setTimeout(() => {
-        popup.style.display = 'flex';
-        form.reset();
-      }, 500);
+      const formData = new FormData(form);
+
+      fetch("https://formsubmit.co/ajax/contacto@sistemasdetradingeficientes.com", {
+        method: "POST",
+        headers: {
+          'Accept': 'application/json'
+        },
+        body: formData
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success === "true" || data.success) {
+          form.reset();
+          showPopup();
+        } else {
+          alert("Error al enviar el mensaje. Inténtalo de nuevo.");
+        }
+      })
+      .catch(error => {
+        console.error(error);
+        alert("Error al enviar el mensaje. Inténtalo más tarde.");
+      });
     });
 
+    function showPopup() {
+      popup.classList.add("show");
+      overlay.classList.add("show");
+    }
+
     function closePopup() {
-      popup.style.display = 'none';
+      popup.classList.remove("show");
+      overlay.classList.remove("show");
     }
   </script>
+
 </body>
 </html>
