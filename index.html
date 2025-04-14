@@ -310,7 +310,7 @@
         <p class="copyright">© 2025 Sistemas de Trading Eficientes LLC. All rights reserved</p>
       </div>
     </div>
-    <button class="scroll-top-btn" onclick="scrollToTop()" title="Volver arriba">Volver Arriba</button>
+    <button class="scroll-top-btn" onclick="scrollToTop()" id="scrollTopBtn" title="Back to top">Back to top</button>
   </div>
 
   <div id="formPopup">
@@ -344,10 +344,12 @@
       const isSpanish = document.documentElement.lang === "es";
       document.documentElement.lang = isSpanish ? "en" : "es";
 
+      // Actualizar textos principales
       document.getElementById("aboutText").style.display = isSpanish ? "none" : "block";
       document.getElementById("aboutTextEs").style.display = isSpanish ? "block" : "none";
       document.querySelector(".lang-switch").innerText = isSpanish ? "EN" : "ES";
       
+      // Actualizar todos los textos traducibles
       document.getElementById("companyName").innerText = "Sistemas de Trading Eficientes LLC";
       document.getElementById("tagline").innerText = isSpanish ? "Trading Algorítmico y Manual" : "Algorithmic & Manual Trading";
       document.getElementById("aboutTitle").innerText = isSpanish ? "Sobre Nosotros" : "About Us";
@@ -362,11 +364,17 @@
       document.getElementById("contactAddress").innerText = isSpanish ? "Dirección registrada: 30 N Gould St, Sheridan, WY 82801, EE.UU." : "Registered Address: 30 N Gould St, Sheridan, WY 82801, USA";
       document.getElementById("contactToggle").innerText = isSpanish ? "Formulario de contacto" : "Contact Form";
       document.getElementById("formTitle").innerText = isSpanish ? "Contáctenos" : "Contact Us";
+      document.getElementById("scrollTopBtn").innerText = isSpanish ? "Volver Arriba" : "Back to top";
+      document.getElementById("scrollTopBtn").title = isSpanish ? "Volver arriba" : "Back to top";
+      
+      // Actualizar formulario
       document.querySelector('#formPopup input[name="name"]').placeholder = isSpanish ? "Tu nombre" : "Your Name";
       document.querySelector('#formPopup input[name="email"]').placeholder = isSpanish ? "Tu email" : "Your Email";
       document.querySelector('#formPopup textarea').placeholder = isSpanish ? "Tu mensaje" : "Your Message";
       document.getElementById("submitFormBtn").innerText = isSpanish ? "Enviar mensaje" : "Send Message";
       document.querySelector('#formPopup button[type="button"]').innerText = isSpanish ? "Cancelar" : "Cancel";
+      
+      // Actualizar popup de confirmación
       document.getElementById("confirmationTitle").style.display = isSpanish ? "block" : "none";
       document.getElementById("confirmationMessage").style.display = isSpanish ? "block" : "none";
       document.getElementById("confirmationButton").style.display = isSpanish ? "block" : "none";
@@ -375,6 +383,7 @@
       document.getElementById("confirmationButtonEn").style.display = isSpanish ? "none" : "block";
     }
 
+    // Funciones auxiliares
     function toggleContactForm() {
       document.getElementById("formPopup").style.display = "flex";
     }
@@ -398,8 +407,9 @@
       });
     }
 
+    // Mostrar/ocultar botón "Volver arriba"
     window.addEventListener('scroll', function() {
-      const scrollBtn = document.querySelector('.scroll-top-btn');
+      const scrollBtn = document.getElementById("scrollTopBtn");
       if (window.scrollY > 300 && window.innerWidth > 600) {
         scrollBtn.style.display = 'block';
       } else if (window.innerWidth > 600) {
@@ -407,13 +417,15 @@
       }
     });
 
+    // Manejo del formulario (corregido)
     document.getElementById("contactForm").addEventListener("submit", function(e) {
       e.preventDefault();
       const isSpanish = document.documentElement.lang === "es";
       const submitBtn = document.getElementById("submitFormBtn");
-      const originalBtnText = submitBtn.innerText;
+      const originalBtnText = isSpanish ? "Enviar mensaje" : "Send Message";
       
-      submitBtn.innerText = isSpanish ? "Enviando..." : "Sending...";
+      // Texto de carga correcto según idioma
+      submitBtn.textContent = isSpanish ? "Enviando..." : "Sending...";
       submitBtn.disabled = true;
 
       fetch("https://formsubmit.co/ajax/contacto@sistemasdetradingeficientes.com", {
@@ -445,11 +457,12 @@
         console.error("Error:", error);
       })
       .finally(() => {
-        submitBtn.innerText = originalBtnText;
+        submitBtn.textContent = originalBtnText;
         submitBtn.disabled = false;
       });
     });
 
+    // Inicialización
     document.addEventListener('DOMContentLoaded', function() {
       const urlParams = new URLSearchParams(window.location.search);
       if (urlParams.has('success')) {
