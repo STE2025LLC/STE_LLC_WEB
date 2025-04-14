@@ -14,6 +14,7 @@
       margin: 0;
       padding: 0;
       line-height: 1.6;
+      position: relative;
     }
     header {
       background-color: #1a1a2e;
@@ -31,7 +32,7 @@
       margin-top: 10px;
       color: #bbb;
     }
-    /* Botón para cambiar idioma */
+    /* Botón para cambiar idioma siempre visible en la esquina superior derecha */
     .lang-switch {
       position: absolute;
       top: 20px;
@@ -45,6 +46,7 @@
       border-radius: 5px;
       font-weight: bold;
       transition: all 0.3s ease;
+      z-index: 100;  /* Aseguramos que esté por encima de otros elementos */
     }
     .lang-switch:hover {
       background-color: #1a1a2e;
@@ -63,7 +65,7 @@
       border-bottom: 2px solid #1a1a2e;
       padding-bottom: 10px;
     }
-    p {
+    p, li {
       color: #333;
     }
     ul {
@@ -95,7 +97,6 @@
       background-color: #1a1a2e;
       padding: 30px 0 20px;
       margin-top: 80px;
-      position: relative;
     }
     .footer-content {
       max-width: 800px;
@@ -105,7 +106,6 @@
       text-align: center;
     }
     .footer-contact h3 {
-      color: white;
       margin-bottom: 12px;
       font-size: 1.4rem;
     }
@@ -212,8 +212,8 @@
       border: 1px solid #ddd;
       border-radius: 4px;
       width: 100%;
-      box-sizing: border-box;
       margin-bottom: 10px;
+      box-sizing: border-box;
     }
     #formPopup textarea {
       resize: vertical;
@@ -277,7 +277,7 @@
   </style>
 </head>
 <body>
-  <!-- BOTÓN DE CAMBIO DE IDIOMA (siempre visible en la esquina superior derecha) -->
+  <!-- BOTÓN PARA CAMBIAR IDIOMA (siempre visible) -->
   <button class="lang-switch" onclick="switchLang()">EN</button>
 
   <!-- HEADER -->
@@ -293,8 +293,6 @@
     <p id="aboutText">
       Sistemas de Trading Eficientes LLC es una empresa con sede en EE. UU. especializada en el desarrollo de estrategias de trading tanto manuales como algorítmicas, análisis de mercados, gestión de riesgo y psicología del trader, fundamentales para desarrollar una operativa rentable y consistente.
     </p>
-    <!-- Aquí se podría utilizar un párrafo alternativo si fuera necesario -->
-    <p id="aboutTextEs" style="display: none;"></p>
   </section>
 
   <!-- SECCIÓN DE SERVICIOS -->
@@ -459,7 +457,7 @@
     // Función para alternar idioma y actualizar el contenido
     function switchLang() {
       currentLanguage = (currentLanguage === 'es') ? 'en' : 'es';
-      // Actualiza el texto del botón para reflejar el idioma actual (muestra siempre el código del idioma actual)
+      // Actualiza el texto del botón para mostrar el idioma activo (EN o ES)
       document.querySelector('.lang-switch').innerText = currentLanguage.toUpperCase();
       updateContent();
     }
@@ -468,7 +466,7 @@
     function toggleContactForm() {
       const formPopup = document.getElementById("formPopup");
       formPopup.style.display = "flex";
-      // Actualiza placeholders según idioma activo
+      // Actualiza los placeholders según idioma activo
       const t = translations[currentLanguage];
       document.querySelector('#formPopup input[name="name"]').placeholder = t.placeholderName;
       document.querySelector('#formPopup input[name="email"]').placeholder = t.placeholderEmail;
@@ -517,7 +515,7 @@
       submitBtn.textContent = translations[currentLanguage].sendingMessage;
       submitBtn.disabled = true;
       
-      // Simulación de envío con fetch (ajusta la URL según necesites)
+      // Simulación de envío (esta URL es solo de ejemplo; reemplázala por la que necesites)
       fetch("https://formsubmit.co/ajax/" + translations[currentLanguage].contactEmail, {
         method: "POST",
         headers: { 
@@ -537,11 +535,11 @@
           closeForm();
           form.reset();
         } else {
-          alert(translations[currentLanguage].errorMessage);
+          alert(translations[currentLanguage].errorMessage || "Error al enviar el mensaje.");
         }
       })
       .catch(error => {
-        alert(translations[currentLanguage].errorMessage);
+        alert(translations[currentLanguage].errorMessage || "Error al enviar el mensaje.");
         console.error("Error:", error);
       })
       .finally(() => {
@@ -553,7 +551,7 @@
     // Inicializar contenido al cargar la página
     document.addEventListener("DOMContentLoaded", function() {
       updateContent();
-      // Si hay parámetro "success" en la URL, se muestra la confirmación
+      // Si en la URL hay un parámetro "success", se muestra la confirmación (opcional)
       const urlParams = new URLSearchParams(window.location.search);
       if (urlParams.has('success')) {
         showConfirmation();
