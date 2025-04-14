@@ -141,31 +141,47 @@
     }
    /* BOTÓN VOLVER ARRIBA */
 .scroll-top-btn {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  /* Colores claros para destacar sobre fondo oscuro */
-  background-color: #fff;  
-  color: #1a1a2e;
-  border: 2px solid #1a1a2e;
-  
-  padding: 10px 20px;
-  font-size: 0.9rem;
-  font-weight: bold;
-  cursor: pointer;
-  display: none; /* Se muestra dinámicamente via JS cuando hay scroll */
-  transition: all 0.3s ease;
-  z-index: 1000;
-  border-radius: 20px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-}
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #1a1a2e;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 0.9rem;
+      font-weight: bold;
+      cursor: pointer;
+      display: none;
+      transition: all 0.3s ease;
+      z-index: 1000;
+      border-radius: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
 
-.scroll-top-btn:hover {
-  /* Al pasar el ratón, invierte colores: botón oscuro con texto claro */
-  background-color: #1a1a2e;
-  color: #fff;
-  transform: scale(1.05);
-}
+    .scroll-top-btn:hover {
+      background-color: #2a2a4e;
+      transform: scale(1.05);
+    }
+
+    /* VERSIÓN MÓVIL */
+    @media (max-width: 600px) {
+      .scroll-top-btn {
+        position: static;
+        display: block !important;
+        margin: 20px auto 0;
+        padding: 8px 16px;
+        font-size: 0.8rem;
+        border-radius: 15px;
+        box-shadow: none;
+        background-color: white;
+        color: #1a1a2e;
+      }
+
+      .scroll-top-btn:hover {
+        background-color: #f0f2f5;
+        color: #1a1a2e;
+      }
+    }
 
     @media (max-width: 600px) {
       .scroll-top-btn {
