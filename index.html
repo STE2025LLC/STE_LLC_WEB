@@ -339,32 +339,30 @@
     </div>
   </div>
 
-  <!-- POPUP DE CONFIRMACIÓN (nuevo) -->
+  <!-- POPUP DE CONFIRMACIÓN (versión bilingüe) -->
   <div class="confirmation-popup" id="confirmationPopup">
     <div class="confirmation-content">
-      <h2>¡Gracias!</h2>
-      <p>Tu mensaje ha sido enviado correctamente. Nos pondremos en contacto contigo lo antes posible.</p>
-      <button class="confirmation-btn" onclick="closeConfirmation()">Aceptar</button>
+      <!-- Versión en español (activa por defecto) -->
+      <h2 id="confirmationTitle">¡Gracias!</h2>
+      <p id="confirmationMessage">Tu mensaje ha sido enviado correctamente. Nos pondremos en contacto contigo lo antes posible.</p>
+      <button class="confirmation-btn" onclick="closeConfirmation()" id="confirmationButton">Aceptar</button>
+      
+      <!-- Versión en inglés (oculta por defecto) -->
+      <h2 id="confirmationTitleEn" style="display: none;">Thank You!</h2>
+      <p id="confirmationMessageEn" style="display: none;">Your message has been sent successfully. We will contact you as soon as possible.</p>
+      <button class="confirmation-btn" onclick="closeConfirmation()" id="confirmationButtonEn" style="display: none;">OK</button>
     </div>
   </div>
 
   <script>
-    // Función para cambiar idioma (original)
-    document.addEventListener('DOMContentLoaded', function() {
-      const urlParams = new URLSearchParams(window.location.search);
-      if (urlParams.has('success')) {
-        showConfirmation();
-        history.replaceState(null, '', window.location.pathname);
-      }
-    });
-
+    // Función para cambiar idioma
     function switchLang() {
       const isSpanish = document.documentElement.lang === "es";
       document.documentElement.lang = isSpanish ? "en" : "es";
 
+      // Cambiar contenido de la página
       document.getElementById("aboutText").style.display = isSpanish ? "none" : "block";
       document.getElementById("aboutTextEs").style.display = isSpanish ? "block" : "none";
-
       document.querySelector(".lang-switch").innerText = isSpanish ? "EN" : "ES";
       
       document.getElementById("companyName").innerText = "Sistemas de Trading Eficientes LLC";
@@ -377,24 +375,30 @@
       document.getElementById("service4").innerText = isSpanish ? "Soluciones de asignación estratégica y backtesting." : "Strategic allocation and backtesting solutions.";
       document.getElementById("service5").innerText = isSpanish ? "Fortalecimiento psicológico adaptado al trading para lograr un alto rendimiento y resiliencia en entornos adversos." : "Psychological strengthening tailored to trading for high performance and resilience in adverse market conditions.";
       document.getElementById("contactTitle").innerText = isSpanish ? "Contacto" : "Contact";
-      document.getElementById("contactEmail").innerText = "contact@sistemasdetradingeficientes.com";
+      document.getElementById("contactEmail").innerText = "contacto@sistemasdetradingeficientes.com";
       document.getElementById("contactAddress").innerText = isSpanish ? "Dirección registrada: 30 N Gould St, Sheridan, WY 82801, EE.UU." : "Registered Address: 30 N Gould St, Sheridan, WY 82801, USA";
       document.getElementById("contactToggle").innerText = isSpanish ? "Formulario de contacto" : "Contact Form";
       document.getElementById("formTitle").innerText = isSpanish ? "Contáctenos" : "Contact Us";
+      
+      // Cambiar placeholders del formulario
+      document.querySelector('#formPopup input[name="name"]').placeholder = isSpanish ? "Tu nombre" : "Your Name";
+      document.querySelector('#formPopup input[name="email"]').placeholder = isSpanish ? "Tu email" : "Your Email";
+      document.querySelector('#formPopup textarea').placeholder = isSpanish ? "Tu mensaje" : "Your Message";
+      document.querySelector('#formPopup button[type="submit"]').innerText = isSpanish ? "Enviar mensaje" : "Send Message";
+      document.querySelector('#formPopup button[type="button"]').innerText = isSpanish ? "Cancelar" : "Cancel";
+      
+      // Cambiar popup de confirmación
+      document.getElementById("confirmationTitle").style.display = isSpanish ? "block" : "none";
+      document.getElementById("confirmationMessage").style.display = isSpanish ? "block" : "none";
+      document.getElementById("confirmationButton").style.display = isSpanish ? "block" : "none";
+      document.getElementById("confirmationTitleEn").style.display = isSpanish ? "none" : "block";
+      document.getElementById("confirmationMessageEn").style.display = isSpanish ? "none" : "block";
+      document.getElementById("confirmationButtonEn").style.display = isSpanish ? "none" : "block";
     }
 
     // Función para mostrar/ocultar formulario
     function toggleContactForm() {
-      const formPopup = document.getElementById("formPopup");
-      formPopup.style.display = "flex";
-      // Traducción del formulario si está en español
-      if (document.documentElement.lang === "es") {
-        document.querySelector('#formPopup input[name="name"]').placeholder = "Tu nombre";
-        document.querySelector('#formPopup input[name="email"]').placeholder = "Tu email";
-        document.querySelector('#formPopup textarea').placeholder = "Tu mensaje";
-        document.querySelector('#formPopup button[type="submit"]').innerText = "Enviar mensaje";
-        document.querySelector('#formPopup button[type="button"]').innerText = "Cancelar";
-      }
+      document.getElementById("formPopup").style.display = "flex";
     }
 
     function closeForm() {
@@ -434,11 +438,12 @@
       
       const form = e.target;
       const formData = new FormData(form);
+      const isSpanish = document.documentElement.lang === "es";
       
       // Cambiar texto del botón durante el envío
       const submitBtn = form.querySelector('button[type="submit"]');
       const originalBtnText = submitBtn.textContent;
-      submitBtn.textContent = "Enviando...";
+      submitBtn.textContent = isSpanish ? "Enviando..." : "Sending...";
       submitBtn.disabled = true;
       
       // Enviar formulario usando Fetch API
@@ -457,9 +462,7 @@
       })
       .then(response => {
         if (response.ok) {
-          // Mostrar popup de confirmación
           showConfirmation();
-          // Cerrar formulario y resetear
           closeForm();
           form.reset();
         } else {
@@ -467,13 +470,24 @@
         }
       })
       .catch(error => {
-        alert("Hubo un error al enviar el mensaje. Por favor, inténtalo de nuevo más tarde.");
+        alert(isSpanish 
+          ? "Hubo un error al enviar el mensaje. Por favor, inténtalo de nuevo más tarde." 
+          : "There was an error sending your message. Please try again later.");
         console.error("Error:", error);
       })
       .finally(() => {
         submitBtn.textContent = originalBtnText;
         submitBtn.disabled = false;
       });
+    });
+
+    // Inicializar (por si hay parámetro ?success en la URL)
+    document.addEventListener('DOMContentLoaded', function() {
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.has('success')) {
+        showConfirmation();
+        history.replaceState(null, '', window.location.pathname);
+      }
     });
   </script>
 </body>
