@@ -138,6 +138,7 @@
     .copyright {
       color: #999;
       font-size: 0.8rem;
+      margin-bottom: 60px; /* Añadido espacio para el botón en móviles */
     }
     /* -------------------------
        BOTÓN VOLVER ARRIBA - MEJORADO
@@ -173,9 +174,19 @@
     @media (max-width: 600px) {
       .scroll-top-btn {
         bottom: 20px;
-        right: 20px;
+        left: 50%;
+        right: auto;
+        transform: translateX(-50%);
         padding: 10px 15px;
         font-size: 0.9rem;
+        width: auto;
+        min-width: 150px;
+      }
+      .copyright {
+        margin-bottom: 80px; /* Más espacio para el botón en móviles */
+      }
+      .footer-container {
+        padding-bottom: 40px; /* Ajuste para el botón */
       }
     }
     /* ------------------------
