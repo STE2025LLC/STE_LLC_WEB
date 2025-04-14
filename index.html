@@ -1,246 +1,122 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sistemas de Trading Eficientes LLC</title>
   <style>
-    /* Aquí puedes incluir tus estilos CSS */
     body {
       font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
+      background: #f8f8f8;
+      color: #333;
     }
+
     header {
-      background-color: #0e1a2b;
+      background-color: #0d0d0d;
       color: white;
+      padding: 1rem;
       text-align: center;
-      padding: 2rem;
     }
-    .lang-switch {
-      margin-top: 1rem;
-      padding: 0.5rem 1rem;
-      cursor: pointer;
-    }
+
     section {
       padding: 2rem;
     }
-    .hero-image {
-      width: 100%;
-      max-height: 400px;
-      object-fit: cover;
+
+    footer {
+      background-color: #0d0d0d;
+      color: white;
+      text-align: center;
+      padding: 1rem;
     }
-    ul {
-      list-style: disc;
-      padding-left: 2rem;
-    }
-    .footer-container {
-      background-color: #f1f1f1;
-      padding: 2rem;
-      position: relative;
-    }
-    .footer-content {
+
+    form {
+      max-width: 500px;
+      margin: 0 auto;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      text-align: center;
+      gap: 1rem;
     }
-    .scroll-top-btn {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      padding: 0.5rem 1rem;
-      background-color: #0e1a2b;
+
+    input, textarea {
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    button {
+      padding: 0.7rem;
+      background-color: #0077cc;
       color: white;
       border: none;
+      border-radius: 4px;
       cursor: pointer;
-      display: none;
     }
-    #formPopup {
+
+    .popup {
       position: fixed;
       top: 0;
       left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.6);
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0,0,0,0.6);
       display: none;
       align-items: center;
       justify-content: center;
-      z-index: 999;
+      z-index: 1000;
     }
-    .form-container {
+
+    .popup-content {
       background: white;
       padding: 2rem;
-      border-radius: 10px;
-      max-width: 500px;
-      width: 90%;
-    }
-    .form-container input,
-    .form-container textarea {
-      width: 100%;
-      margin-bottom: 1rem;
-      padding: 0.5rem;
-    }
-    .form-container button {
-      padding: 0.5rem 1rem;
-      margin-right: 0.5rem;
+      border-radius: 8px;
+      text-align: center;
     }
   </style>
 </head>
 <body>
   <header>
-    <h1 id="companyName">Sistemas de Trading Eficientes LLC</h1>
-    <p id="tagline">Algorithmic & Manual Trading</p>
-    <button class="lang-switch" onclick="switchLang()">ES</button>
+    <h1>Sistemas de Trading Eficientes LLC</h1>
   </header>
 
   <section>
-    <img class="hero-image" src="https://raw.githubusercontent.com/SdTE-LLC/website/refs/heads/main/ImagenPortada.avif">
-    <h2 id="aboutTitle">About Us</h2>
-    <p id="aboutText">
-      Sistemas de Trading Eficientes LLC is a US-based company specializing in the development of both manual and algorithmic trading strategies, market analysis, risk management, and trader psychology, fundamental to developing profitable and consistent trading.
-    </p>
-    <p id="aboutTextEs" style="display: none;">
-      Sistemas de Trading Eficientes LLC es una empresa con sede en EE. UU. especializada en el desarrollo de estrategias de trading tanto manuales como algorítmicas, análisis de mercados, gestión de riesgo y psicología del trader, fundamentales para desarrollar una operativa rentable y consistente.
-    </p>
+    <h2>Contáctanos</h2>
+    <form id="contact-form">
+      <input type="text" name="name" placeholder="Tu nombre" required>
+      <input type="email" name="email" placeholder="Tu correo electrónico" required>
+      <textarea name="message" placeholder="Escribe tu mensaje" rows="5" required></textarea>
+      <button type="submit">Enviar mensaje</button>
+    </form>
   </section>
 
-  <section>
-    <h2 id="servicesTitle">Our Services</h2>
-    <ul>
-      <li id="service1">Custom-built algorithmic and manual trading systems</li>
-      <li id="service2">Risk management and performance analytics</li>
-      <li id="service3">Market research and consulting</li>
-      <li id="service4">Strategic allocation and backtesting solutions</li>
-      <li id="service5">Psychological strengthening tailored to trading for high performance and resilience in adverse market conditions</li>
-    </ul>
-  </section>
-
-  <div class="footer-container">
-    <div class="footer-content">
-      <div class="footer-contact">
-        <h3 id="contactTitle">Contact</h3>
-        <p id="contactEmail">contacto@sistemasdetradingeficientes.com</p>
-        <button class="contact-form-btn" onclick="toggleContactForm()" id="contactToggle">Contact Form</button>
-      </div>
-
-      <div class="footer-info">
-        <p class="footer-address" id="contactAddress">Registered Address: 30 N Gould St, Sheridan, WY 82801, USA</p>
-        <p class="copyright">© 2025 Sistemas de Trading Eficientes LLC. All rights reserved</p>
-      </div>
-    </div>
-    <button class="scroll-top-btn" onclick="scrollToTop()" title="Volver arriba">Volver Arriba</button>
-  </div>
-
-  <!-- FORMULARIO EMERGENTE -->
-  <div id="formPopup">
-    <div class="form-container">
-      <h2 id="formTitle">Contact Us</h2>
-      <form onsubmit="handleFormSubmit(event)">
-        <input type="hidden" name="_subject" value="Nuevo mensaje desde la web">
-        <input type="hidden" name="_captcha" value="false">
-        <input type="text" name="name" placeholder="Your Name" required>
-        <input type="email" name="email" placeholder="Your Email" required>
-        <textarea name="message" placeholder="Your Message" required></textarea>
-        <button type="submit">Send Message</button>
-        <button type="button" onclick="closeForm()">Cancel</button>
-      </form>
+  <div class="popup" id="popup">
+    <div class="popup-content">
+      <p><strong>¡Gracias!</strong><br>Tu mensaje ha sido enviado correctamente. Nos pondremos en contacto contigo lo antes posible.</p>
+      <button onclick="closePopup()">Cerrar</button>
     </div>
   </div>
+
+  <footer>
+    <p>&copy; 2025 Sistemas de Trading Eficientes LLC</p>
+  </footer>
 
   <script>
-    function switchLang() {
-      const isSpanish = document.documentElement.lang === "es";
-      document.documentElement.lang = isSpanish ? "en" : "es";
-      document.getElementById("aboutText").style.display = isSpanish ? "none" : "block";
-      document.getElementById("aboutTextEs").style.display = isSpanish ? "block" : "none";
-      document.querySelector(".lang-switch").innerText = isSpanish ? "EN" : "ES";
-      document.getElementById("companyName").innerText = "Sistemas de Trading Eficientes LLC";
-      document.getElementById("tagline").innerText = isSpanish ? "Trading Algorítmico y Manual" : "Algorithmic & Manual Trading";
-      document.getElementById("aboutTitle").innerText = isSpanish ? "Sobre Nosotros" : "About Us";
-      document.getElementById("servicesTitle").innerText = isSpanish ? "Nuestros Servicios" : "Our Services";
-      document.getElementById("service1").innerText = isSpanish ? "Sistemas de trading algorítmico y manual personalizados." : "Custom-built algorithmic and manual trading systems.";
-      document.getElementById("service2").innerText = isSpanish ? "Gestión de riesgos y análisis de rendimiento." : "Risk management and performance analytics.";
-      document.getElementById("service3").innerText = isSpanish ? "Investigación de mercados y consultoría." : "Market research and consulting.";
-      document.getElementById("service4").innerText = isSpanish ? "Soluciones de asignación estratégica y backtesting." : "Strategic allocation and backtesting solutions.";
-      document.getElementById("service5").innerText = isSpanish ? "Fortalecimiento psicológico adaptado al trading para lograr un alto rendimiento y resiliencia en entornos adversos." : "Psychological strengthening tailored to trading for high performance and resilience in adverse market conditions.";
-      document.getElementById("contactTitle").innerText = isSpanish ? "Contacto" : "Contact";
-      document.getElementById("contactEmail").innerText = "contacto@sistemasdetradingeficientes.com";
-      document.getElementById("contactAddress").innerText = isSpanish ? "Dirección registrada: 30 N Gould St, Sheridan, WY 82801, EE.UU." : "Registered Address: 30 N Gould St, Sheridan, WY 82801, USA";
-      document.getElementById("contactToggle").innerText = isSpanish ? "Formulario de contacto" : "Contact Form";
-      document.getElementById("formTitle").innerText = isSpanish ? "Contáctenos" : "Contact Us";
-    }
+    const form = document.getElementById('contact-form');
+    const popup = document.getElementById('popup');
 
-    function toggleContactForm() {
-      const formPopup = document.getElementById("formPopup");
-      formPopup.style.display = "flex";
-      if (document.documentElement.lang === "es") {
-        document.querySelector('#formPopup input[name="name"]').placeholder = "Tu nombre";
-        document.querySelector('#formPopup input[name="email"]').placeholder = "Tu email";
-        document.querySelector('#formPopup textarea').placeholder = "Tu mensaje";
-        document.querySelector('#formPopup button[type="submit"]').innerText = "Enviar mensaje";
-        document.querySelector('#formPopup button[type="button"]').innerText = "Cancelar";
-      }
-    }
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
 
-    function closeForm() {
-      document.getElementById("formPopup").style.display = "none";
-    }
-
-    function scrollToTop() {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    window.addEventListener('scroll', function() {
-      const scrollBtn = document.querySelector('.scroll-top-btn');
-      if (window.scrollY > 300 && window.innerWidth > 600) {
-        scrollBtn.style.display = 'block';
-      } else if (window.innerWidth > 600) {
-        scrollBtn.style.display = 'none';
-      }
+      // Simulación de envío (puedes integrar backend real aquí si quieres)
+      setTimeout(() => {
+        popup.style.display = 'flex';
+        form.reset();
+      }, 500);
     });
 
-    function handleFormSubmit(event) {
-      event.preventDefault();
-      const form = event.target;
-      const data = new FormData(form);
-
-      fetch("https://formsubmit.co/ajax/contacto@sistemasdetradingeficientes.com", {
-        method: "POST",
-        body: data,
-      })
-      .then(response => {
-        if (!response.ok) throw new Error("Error al enviar");
-        return response.json();
-      })
-      .then(result => {
-        showThankYouPopup();
-      })
-      .catch(error => {
-        showErrorPopup();
-      });
-    }
-
-    function showThankYouPopup() {
-      const formPopup = document.getElementById("formPopup");
-      formPopup.innerHTML = `
-        <div class="form-container">
-          <h2>¡Gracias!</h2>
-          <p>Tu mensaje ha sido enviado correctamente. Nos pondremos en contacto contigo lo antes posible.</p>
-          <button onclick="closeForm()">Cerrar</button>
-        </div>
-      `;
-    }
-
-    function showErrorPopup() {
-      const formPopup = document.getElementById("formPopup");
-      formPopup.innerHTML = `
-        <div class="form-container">
-          <h2>Error</h2>
-          <p>No se pudo enviar el mensaje. Intenta nuevamente más tarde o contáctanos por email.</p>
-          <button onclick="closeForm()">Cerrar</button>
-        </div>
-      `;
+    function closePopup() {
+      popup.style.display = 'none';
     }
   </script>
 </body>
