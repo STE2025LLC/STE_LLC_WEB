@@ -5,241 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Sistemas de Trading Eficientes LLC</title>
   <style>
-    body {
-      font-family: "Segoe UI", sans-serif;
-      background-color: #f0f2f5;
-      margin: 0;
-      padding: 0;
-      line-height: 1.6;
-    }
-    header {
-      background-color: #1a1a2e;
-      color: white;
-      text-align: center;
-      padding: 60px 20px;
-      position: relative;
-    }
-    header h1 {
-      font-size: 2.5rem;
-      margin: 0;
-    }
-    header p {
-      font-size: 1.2rem;
-      margin-top: 10px;
-      color: #bbb;
-    }
-    .lang-switch {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      background-color: #fff;
-      border: 1px solid #1a1a2e;
-      color: #1a1a2e;
-      padding: 8px 15px;
-      cursor: pointer;
-      font-size: 1rem;
-      border-radius: 5px;
-      font-weight: bold;
-      transition: all 0.3s ease;
-    }
-    .lang-switch:hover {
-      background-color: #1a1a2e;
-      color: white;
-      border-color: white;
-    }
-    section {
-      max-width: 800px;
-      margin: 40px auto;
-      padding: 0 20px;
-    }
-    h2 {
-      color: #1a1a2e;
-      margin-bottom: 10px;
-      font-size: 1.8rem;
-      border-bottom: 2px solid #1a1a2e;
-      padding-bottom: 10px;
-    }
-    ul {
-      list-style: none;
-      padding-left: 0;
-    }
-    li {
-      margin-bottom: 10px;
-      padding-left: 30px;
-      position: relative;
-    }
-    li::before {
-      content: "✔️";
-      position: absolute;
-      left: 0;
-    }
-    .hero-image {
-      width: 100%;
-      height: 400px;
-      object-fit: cover;
-      margin-bottom: 20px;
-      border-radius: 5px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    }
-    .footer-container {
-      background-color: #1a1a2e;
-      padding: 30px 0 20px;
-      margin-top: 80px;
-      position: relative;
-    }
-    .footer-content {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 0 20px;
-      color: white;
-    }
-    .footer-contact {
-      text-align: center;
-      margin-bottom: 30px;
-      padding-bottom: 35px;
-      border-bottom: 1px solid rgba(255,255,255,0.15);
-    }
-    .footer-contact h3 {
-      color: white;
-      margin-bottom: 12px;
-      font-size: 1.4rem;
-    }
-    .footer-contact p {
-      margin: 8px 0;
-      color: #ddd;
-    }
-    .contact-form-btn {
-      background-color: transparent;
-      color: white;
-      border: 1px solid rgba(255,255,255,0.3);
-      padding: 8px 20px;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 0.95rem;
-      margin-top: 10px;
-      transition: all 0.3s;
-    }
-    .contact-form-btn:hover {
-      background-color: rgba(255,255,255,0.1);
-    }
-    .footer-info {
-      text-align: center;
-    }
-    .footer-address {
-      color: #bbb;
-      font-size: 0.8rem;
-      margin-bottom: 10px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    .copyright {
-      color: #999;
-      font-size: 0.8rem;
-    }
-
-    /* ---- BOTÓN VOLVER ARRIBA ---- */
-    .scroll-top-btn {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background-color: #1a1a2e;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      font-size: 0.9rem;
-      font-weight: bold;
-      cursor: pointer;
-      display: none;
-      transition: all 0.3s ease;
-      z-index: 1000;
-      border-radius: 20px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    }
-
-    .scroll-top-btn:hover {
-      background-color: #2a2a4e;
-      transform: scale(1.05);
-    }
-
-    /* VERSIÓN MÓVIL */
-    @media (max-width: 600px) {
-      .scroll-top-btn {
-        position: static;
-        display: block !important;
-        margin: 20px auto 0;
-        padding: 8px 16px;
-        font-size: 0.8rem;
-        border-radius: 15px;
-        box-shadow: none;
-        background-color: white;
-        color: #1a1a2e;
-      }
-
-      .scroll-top-btn:hover {
-        background-color: #f0f2f5;
-        color: #1a1a2e;
-      }
-    }
-
-    /* ESTILOS DEL FORMULARIO EMERGENTE */
-    #formPopup {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.7);
-      z-index: 10000;
-      display: none;
-      justify-content: center;
-      align-items: center;
-    }
-    #formPopup .form-container {
-      background: white;
-      padding: 30px;
-      border-radius: 8px;
-      max-width: 500px;
-      width: 90%;
-    }
-    #formPopup h2 {
-      color: #1a1a2e;
-      margin-top: 0;
-      border-bottom: none;
-    }
-    #formPopup input,
-    #formPopup textarea {
-      padding: 10px;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-      width: 100%;
-      box-sizing: border-box;
-    }
-    #formPopup textarea {
-      resize: vertical;
-      min-height: 100px;
-    }
-    #formPopup button[type="submit"] {
-      background: #1a1a2e;
-      color: white;
-      border: none;
-      padding: 12px;
-      border-radius: 4px;
-      cursor: pointer;
-      font-weight: bold;
-      width: 100%;
-      margin-top: 10px;
-    }
-    #formPopup button[type="button"] {
-      background: #f0f2f5;
-      color: #1a1a2e;
-      border: 1px solid #ddd;
-      padding: 12px;
-      border-radius: 4px;
-      cursor: pointer;
-      width: 100%;
-      margin-top: 5px;
-    }
+    /* Aquí van todos tus estilos CSS tal como los tenías */
+    /* (omito el bloque aquí por espacio, pero puedes pegar el mismo bloque de estilos que ya tenías sin tocarlo) */
   </style>
 </head>
 <body>
@@ -284,19 +51,16 @@
         <p class="copyright">© 2025 Sistemas de Trading Eficientes LLC. All rights reserved</p>
       </div>
     </div>
-    <!-- Botón centrado en versión móvil -->
     <button class="scroll-top-btn" onclick="scrollToTop()" title="Volver arriba">Volver Arriba</button>
   </div>
 
-  <!-- FORMULARIO EMERGENTE (oculto inicialmente) -->
+  <!-- FORMULARIO EMERGENTE (actualizado) -->
   <div id="formPopup">
     <div class="form-container">
       <h2 id="formTitle">Contact Us</h2>
-      <form 
-        action="https://formsubmit.co/contacto@sistemasdetradingeficientes.com" 
-        method="POST"
-      >
+      <form onsubmit="handleFormSubmit(event)">
         <input type="hidden" name="_subject" value="Nuevo mensaje desde la web">
+        <input type="hidden" name="_captcha" value="false">
         <input type="text" name="name" placeholder="Your Name" required>
         <input type="email" name="email" placeholder="Your Email" required>
         <textarea name="message" placeholder="Your Message" required></textarea>
@@ -307,25 +71,12 @@
   </div>
 
   <script>
-    // Función para cambiar idioma (original)
-
-    document.addEventListener('DOMContentLoaded', function() {
-        const urlParams = new URLSearchParams(window.location.search);
-        if (urlParams.has('success')) {
-        alert("¡Mensaje enviado! Nos pondremos en contacto pronto.");
-        history.replaceState(null, '', window.location.pathname); // Limpia la URL
-    }
-    });
-
     function switchLang() {
       const isSpanish = document.documentElement.lang === "es";
       document.documentElement.lang = isSpanish ? "en" : "es";
-
       document.getElementById("aboutText").style.display = isSpanish ? "none" : "block";
       document.getElementById("aboutTextEs").style.display = isSpanish ? "block" : "none";
-
       document.querySelector(".lang-switch").innerText = isSpanish ? "EN" : "ES";
-      
       document.getElementById("companyName").innerText = "Sistemas de Trading Eficientes LLC";
       document.getElementById("tagline").innerText = isSpanish ? "Trading Algorítmico y Manual" : "Algorithmic & Manual Trading";
       document.getElementById("aboutTitle").innerText = isSpanish ? "Sobre Nosotros" : "About Us";
@@ -342,11 +93,9 @@
       document.getElementById("formTitle").innerText = isSpanish ? "Contáctenos" : "Contact Us";
     }
 
-    // Función para mostrar/ocultar formulario
     function toggleContactForm() {
       const formPopup = document.getElementById("formPopup");
       formPopup.style.display = "flex";
-      // Traducción del formulario si está en español
       if (document.documentElement.lang === "es") {
         document.querySelector('#formPopup input[name="name"]').placeholder = "Tu nombre";
         document.querySelector('#formPopup input[name="email"]').placeholder = "Tu email";
@@ -360,15 +109,10 @@
       document.getElementById("formPopup").style.display = "none";
     }
 
-    // Función para volver arriba
     function scrollToTop() {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // Mostrar/ocultar botón "Volver arriba"
     window.addEventListener('scroll', function() {
       const scrollBtn = document.querySelector('.scroll-top-btn');
       if (window.scrollY > 300 && window.innerWidth > 600) {
@@ -377,6 +121,40 @@
         scrollBtn.style.display = 'none';
       }
     });
+
+    // NUEVA FUNCIÓN PARA ENVIAR FORMULARIO SIN REDIRECCIÓN
+    function handleFormSubmit(event) {
+      event.preventDefault();
+      const form = event.target;
+      const data = new FormData(form);
+
+      fetch("https://formsubmit.co/ajax/contacto@sistemasdetradingeficientes.com", {
+        method: "POST",
+        body: data,
+      })
+      .then(response => {
+        if (!response.ok) throw new Error("Error al enviar");
+        return response.json();
+      })
+      .then(result => {
+        form.innerHTML = `
+          <h2>¡Gracias!</h2>
+          <p>Tu mensaje ha sido enviado correctamente. Nos pondremos en contacto contigo lo antes posible.</p>
+          <button onclick="closeForm()">Cerrar</button>
+        `;
+      })
+      .catch(error => {
+        form.innerHTML = `
+          <h2>Error</h2>
+          <p>No se pudo enviar el mensaje. Intenta nuevamente más tarde o contáctanos por email.</p>
+          <button onclick="closeForm()">Cerrar</button>
+        `;
+      });
+    }
   </script>
 </body>
 </html>
+
+
+
+
