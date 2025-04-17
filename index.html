@@ -180,17 +180,6 @@
     .scroll-top-btn.visible {
       display: flex;
     }
-    @media (max-width: 600px) {
-      .scroll-top-btn {
-        bottom: 20px;
-        right: 20px;
-        padding: 10px 15px;
-        font-size: 0.9rem;
-      }
-      .logo {
-        height: 50px; /* Tamaño reducido para móviles */
-      }
-    }
     /* ------------------------
        POPUP DEL FORMULARIO
        ------------------------ */
@@ -284,6 +273,68 @@
       border-radius: 4px;
       cursor: pointer;
       font-weight: bold;
+    }
+    /* ========================
+       MEDIA QUERIES PARA MÓVIL
+       ======================== */
+    @media (max-width: 600px) {
+      /* Ajustes para el encabezado */
+      header {
+        padding: 30px 15px 20px; /* Reducimos el padding superior e inferior */
+      }
+      
+      header h1 {
+        font-size: 1.8rem; /* Tamaño más pequeño para el título */
+        margin: 5px 0 0; /* Menos margen */
+      }
+      
+      header p {
+        font-size: 1rem; /* Tamaño más pequeño para el subtítulo */
+        margin-top: 5px; /* Menos espacio arriba */
+      }
+      
+      .logo {
+        height: 40px; /* Logo más pequeño */
+      }
+      
+      .lang-switch {
+        top: 10px;
+        right: 10px;
+        padding: 6px 12px;
+        font-size: 0.9rem;
+      }
+      
+      /* Ajustes para la imagen hero */
+      .hero-image {
+        height: 250px; /* Altura reducida */
+      }
+      
+      /* Ajustes para el botón de scroll */
+      .scroll-top-btn {
+        bottom: 20px;
+        right: 20px;
+        padding: 10px 15px;
+        font-size: 0.9rem;
+      }
+    }
+
+    /* Para pantallas muy pequeñas (ej. iPhone SE) */
+    @media (max-width: 375px) {
+      header h1 {
+        font-size: 1.5rem;
+      }
+      
+      header p {
+        font-size: 0.9rem;
+      }
+      
+      .logo {
+        height: 35px;
+      }
+      
+      .hero-image {
+        height: 200px;
+      }
     }
   </style>
 </head>
