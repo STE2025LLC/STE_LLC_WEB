@@ -516,6 +516,7 @@
         placeholderName: "Your Name",
         placeholderEmail: "Your Email",
         placeholderMessage: "Your Message",
+        requiredField: "Please fill out this field",
         submitBtn: "Send Message",
         cancelBtn: "Cancel",
         sendingMessage: "Sending...",
@@ -546,13 +547,14 @@
         placeholderName: "Tu nombre",
         placeholderEmail: "Tu email",
         placeholderMessage: "Tu mensaje",
+        requiredField: "Por favor, completa este campo",
         submitBtn: "Enviar mensaje",
         cancelBtn: "Cancelar",
         sendingMessage: "Enviando...",
         confirmBtn: "Aceptar",
         confirmTitle: "¡Gracias!",
         confirmMessage: "Tu mensaje ha sido enviado correctamente. Nos pondremos en contacto contigo lo antes posible.",
-        copyright: "© 2025 Sistemas de Trading Eficientes LLC. Todos los derechos verschiebenescription",
+        copyright: "© 2025 Sistemas de Trading Eficientes LLC. Todos los derechos reservados",
         scrollTop: "Volver Arriba",
         errorMessage: "Error al enviar el mensaje. Por favor, inténtalo de nuevo más tarde."
       }
@@ -576,9 +578,6 @@
       document.getElementById("contactAddress").innerText = t.contactAddress;
       document.getElementById("contactToggle").innerText = t.contactFormBtn;
       document.getElementById("formTitle").innerText = t.formTitle;
-      document.querySelector('#formPopup input[name="name"]').placeholder = t.placeholderName;
-      document.querySelector('#formPopup input[name="email"]').placeholder = t.placeholderEmail;
-      document.querySelector('#formPopup textarea').placeholder = t.placeholderMessage;
       document.getElementById("submitBtn").innerText = t.submitBtn;
       document.querySelector('#formPopup button[type="button"]').innerText = t.cancelBtn;
       document.getElementById("confirmBtn").innerText = t.confirmBtn;
@@ -586,6 +585,34 @@
       document.getElementById("confirmMessage").innerText = t.confirmMessage;
       document.getElementById("copyright").innerText = t.copyright;
       document.getElementById('scrollTopBtn').textContent = t.scrollTop;
+
+      // Actualizar placeholders y mensajes de validación
+      const nameField = document.querySelector('#formPopup input[name="name"]');
+      const emailField = document.querySelector('#formPopup input[name="email"]');
+      const messageField = document.querySelector('#formPopup textarea');
+
+      nameField.placeholder = t.placeholderName;
+      emailField.placeholder = t.placeholderEmail;
+      messageField.placeholder = t.placeholderMessage;
+
+      // Configurar mensajes de validación personalizados
+      nameField.title = t.requiredField;
+      emailField.title = t.requiredField;
+      messageField.title = t.requiredField;
+
+      nameField.oninvalid = (e) => {
+        e.target.setCustomValidity(t.requiredField);
+      };
+      emailField.oninvalid = (e) => {
+        e.target.setCustomValidity(t.requiredField);
+      };
+      messageField.oninvalid = (e) => {
+        e.target.setCustomValidity(t.requiredField);
+      };
+
+      nameField.oninput = (e) => e.target.setCustomValidity('');
+      emailField.oninput = (e) => e.target.setCustomValidity('');
+      messageField.oninput = (e) => e.target.setCustomValidity('');
     }
 
     function switchLang() {
@@ -597,11 +624,9 @@
     function toggleContactForm() {
       const formPopup = document.getElementById("formPopup");
       formPopup.style.display = "flex";
-      const t = translations[currentLanguage];
-      document.querySelector('#formPopup input[name="name"]').placeholder = t.placeholderName;
-      document.querySelector('#formPopup input[name="email"]').placeholder = t.placeholderEmail;
-      document.querySelector('#formPopup textarea').placeholder = t.placeholderMessage;
+      updateContent(); // Asegura que los placeholders estén en el idioma correcto
     }
+
     function closeForm() {
       document.getElementById("formPopup").style.display = "none";
     }
@@ -609,6 +634,7 @@
     function showConfirmation() {
       document.getElementById("confirmationPopup").style.display = "flex";
     }
+
     function closeConfirmation() {
       document.getElementById("confirmationPopup").style.display = "none";
     }
