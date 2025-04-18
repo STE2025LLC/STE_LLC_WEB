@@ -90,13 +90,21 @@
     }
     li {
       margin-bottom: 10px;
-      padding-left: 30px;
+      padding-left: 32px;
       position: relative;
+      min-height: 24px;
     }
     li::before {
-      content: "✔️";
+      content: "";
       position: absolute;
       left: 0;
+      top: 2px;
+      width: 20px;
+      height: 20px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%231a1a2e' d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z'/%3E%3C/svg%3E");
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
     }
     .hero-image {
       width: 100%;
@@ -132,7 +140,7 @@
     .footer-contact p {
       margin: 8px 0;
       color: #ddd;
-      text-align: center; /* 👈 ÚNICO CAMBIO REALIZADO */
+      text-align: center;
     }
     .contact-form-btn {
       background-color: transparent;
@@ -159,6 +167,9 @@
     .copyright {
       color: #999;
       font-size: 0.8rem;
+    }
+    .copyright .mobile-line {
+      display: none;
     }
     /* -------------------------
        BOTÓN VOLVER ARRIBA
@@ -202,9 +213,9 @@
       height: 100%;
       background: rgba(0,0,0,0.7);
       z-index: 10000;
-      display: none;               /* oculto por defecto */
-      justify-content: center;     /* centra horizontal */
-      align-items: center;         /* centra vertical */
+      display: none;
+      justify-content: center;
+      align-items: center;
       padding: 20px;
       box-sizing: border-box;
       overflow-y: auto;
@@ -215,7 +226,7 @@
       border-radius: 8px;
       max-width: 500px;
       width: 100%;
-      margin: auto;                /* refuerzo de centrado */
+      margin: auto;
       box-shadow: 0 4px 15px rgba(0,0,0,0.2);
     }
     #formPopup h2 {
@@ -370,6 +381,35 @@
         padding: 10px 15px;
         font-size: 0.95rem;
       }
+      li {
+        padding-left: 28px;
+        min-height: 20px;
+      }
+      li::before {
+        width: 18px;
+        height: 18px;
+        top: 1px;
+      }
+      .copyright {
+        display: flex;
+        flex-direction: column;
+      }
+      .copyright .desktop-line {
+        display: none;
+      }
+      .copyright .mobile-line {
+        display: block;
+      }
+      .footer-address,
+      .copyright {
+        font-size: 0.7rem;
+        white-space: normal;
+        text-overflow: clip;
+        overflow: visible;
+      }
+      .footer-info {
+        padding: 0 10px;
+      }
     }
     @media (max-width: 375px) {
       header h1 {
@@ -398,6 +438,18 @@
       #formPopup textarea {
         padding: 8px;
         font-size: 0.9rem;
+      }
+      li {
+        padding-left: 24px;
+        min-height: 18px;
+      }
+      li::before {
+        width: 16px;
+        height: 16px;
+      }
+      .footer-address,
+      .copyright {
+        font-size: 0.65rem;
       }
     }
   </style>
@@ -459,7 +511,11 @@
       </div>
       <div class="footer-info">
         <p class="footer-address" id="contactAddress">Dirección registrada: 30 N Gould St, Sheridan, WY 82801, EE.UU.</p>
-        <p class="copyright" id="copyright">© 2025 Sistemas de Trading Eficientes LLC. Todos los derechos reservados</p>
+        <p class="copyright" id="copyright">
+          <span class="desktop-line">© 2025 Sistemas de Trading Eficientes LLC. Todos los derechos reservados.</span>
+          <span class="mobile-line">© 2025 Sistemas de Trading Eficientes LLC.</span>
+          <span class="mobile-line">Todos los derechos reservados</span>
+        </p>
       </div>
     </div>
   </div>
@@ -524,7 +580,9 @@
         confirmBtn: "OK",
         confirmTitle: "Thank you!",
         confirmMessage: "Your message has been sent successfully. We will contact you as soon as possible.",
-        copyright: "© 2025 Sistemas de Trading Eficientes LLC. All rights reserved",
+        copyrightDesktop: "© 2025 Sistemas de Trading Eficientes LLC. All rights reserved",
+        copyrightLine1: "© 2025 Sistemas de Trading Eficientes LLC.",
+        copyrightLine2: "All rights reserved",
         scrollTop: "Scroll to top",
         errorMessage: "Error sending message. Please try again later."
       },
@@ -555,7 +613,9 @@
         confirmBtn: "Aceptar",
         confirmTitle: "¡Gracias!",
         confirmMessage: "Tu mensaje ha sido enviado correctamente. Nos pondremos en contacto contigo lo antes posible.",
-        copyright: "© 2025 Sistemas de Trading Eficientes LLC. Todos los derechos reservados",
+        copyrightDesktop: "© 2025 Sistemas de Trading Eficientes LLC. Todos los derechos reservados",
+        copyrightLine1: "© 2025 Sistemas de Trading Eficientes LLC.",
+        copyrightLine2: "Todos los derechos reservados",
         scrollTop: "Volver Arriba",
         errorMessage: "Error al enviar el mensaje. Por favor, inténtalo de nuevo más tarde."
       }
@@ -584,7 +644,12 @@
       document.getElementById("confirmBtn").innerText = t.confirmBtn;
       document.getElementById("confirmTitle").innerText = t.confirmTitle;
       document.getElementById("confirmMessage").innerText = t.confirmMessage;
-      document.getElementById("copyright").innerText = t.copyright;
+      
+      // Actualizar copyright
+      document.querySelector('.copyright .desktop-line').textContent = t.copyrightDesktop;
+      document.querySelectorAll('.copyright .mobile-line')[0].textContent = t.copyrightLine1;
+      document.querySelectorAll('.copyright .mobile-line')[1].textContent = t.copyrightLine2;
+      
       document.getElementById('scrollTopBtn').textContent = t.scrollTop;
 
       // Actualizar placeholders y mensajes de validación
@@ -625,7 +690,7 @@
     function toggleContactForm() {
       const formPopup = document.getElementById("formPopup");
       formPopup.style.display = "flex";
-      updateContent(); // Asegura que los placeholders estén en el idioma correcto
+      updateContent();
     }
 
     function closeForm() {
@@ -667,10 +732,8 @@
       submitBtn.textContent = t.sendingMessage;
       submitBtn.disabled = true;
       
-      // Añadir timestamp para evitar caché en móviles
       const urlWithCacheBuster = `${form.action}?t=${Date.now()}`;
       
-      // Primero intentamos con fetch
       fetch(urlWithCacheBuster, {
         method: "POST",
         body: new FormData(form),
@@ -690,7 +753,6 @@
       })
       .catch(error => {
         console.error("Error con fetch:", error);
-        // Fallback para móviles: intentamos con sendBeacon
         if (navigator.sendBeacon) {
           const formData = new FormData(form);
           if (navigator.sendBeacon(form.action, formData)) {
