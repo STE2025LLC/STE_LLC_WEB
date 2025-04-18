@@ -4,9 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Sistemas de Trading Eficientes LLC</title>
+  <!-- Favicon -->
   <link rel="icon" href="https://raw.githubusercontent.com/STE2025LLC/STE_LLC.github.io/refs/heads/main/Logo%20Blanco%20Cuadrado.png" type="image/png">
-  <!-- Script de reCAPTCHA -->
-  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   <style>
     /* ========================
        ESTILOS GENERALES
@@ -222,12 +221,6 @@
       resize: vertical;
       min-height: 100px;
     }
-    /* Estilos para reCAPTCHA */
-    .g-recaptcha {
-      margin: 15px 0;
-      display: flex;
-      justify-content: center;
-    }
     #formPopup button {
       padding: 12px;
       border-radius: 4px;
@@ -328,12 +321,6 @@
         padding: 10px 15px;
         font-size: 0.9rem;
       }
-      
-      /* Ajustes para reCAPTCHA en móvil */
-      .g-recaptcha {
-        transform: scale(0.85);
-        transform-origin: center;
-      }
     }
 
     @media (max-width: 375px) {
@@ -388,7 +375,7 @@
   <section>
     <h2 id="servicesTitle">Nuestros Servicios</h2>
     <ul>
-      <li id="service1">Sistemas de trading algorítmico y manual personalizados.</li>
+      <li id="service1">Sistemas de trading manual y algorítmico personalizados.</li>
       <li id="service2">Gestión de riesgos y análisis de rendimiento.</li>
       <li id="service3">Investigación de mercados y consultoría.</li>
       <li id="service4">Soluciones de asignación estratégica y backtesting.</li>
@@ -423,12 +410,8 @@
         <input type="text" name="name" placeholder="Tu nombre" required>
         <input type="email" name="email" placeholder="Tu email" required>
         <textarea name="message" placeholder="Tu mensaje" required></textarea>
-        
-        <!-- Widget de reCAPTCHA - REEMPLAZA TU_SITE_KEY POR TU CLAVE REAL -->
-        <div class="g-recaptcha" data-sitekey="6LcpgBwrAAAAAJGX3hxe5bIW_S0jOtH37RyYKhNG"></div>
-        
         <button type="submit" id="submitBtn">Enviar mensaje</button>
-        <button type="button" onclick="closeForm()">Cancelar</button>
+        <button type="button" onclick="closeForm()">Cancel</button>
       </form>
     </div>
   </div>
@@ -446,17 +429,16 @@
     // Objeto de traducciones para inglés y español
     const translations = {
       en: {
-        companyNameLine1: "Sistemas de",  // Mantenemos en español
-        companyNameLine2: "Trading Eficientes LLC",  // Mantenemos en español
-        tagline: "Manual & Algorithmic Trading",
+        // Nombre de la empresa siempre en español (no cambia)
+        tagline: "Manual & nuAlgorithmic Trading",
         aboutTitle: "About Us",
         aboutText: "Sistemas de Trading Eficientes LLC is a US-based company specializing in the development of both manual and algorithmic trading strategies, market analysis, risk management, and trader psychology – all essential for consistent and profitable trading.",
         servicesTitle: "Our Services",
-        service1: "Custom-built manual and algorithmic trading systems.",
-        service2: "Risk management and performance analytics.",
-        service3: "Market research and consulting.",
-        service4: "Strategic allocation and backtesting solutions.",
-        service5: "Psychological strengthening tailored to trading for high performance and resilience in adverse market conditions.",
+        service1: "Custom-built algorithmic and manual trading systems",
+        service2: "Risk management and performance analytics",
+        service3: "Market research and consulting",
+        service4: "Strategic allocation and backtesting solutions",
+        service5: "Psychological strengthening tailored to trading for high performance and resilience in adverse market conditions",
         contactTitle: "Contact",
         contactEmail: "info@sistemasdetradingeficientes.com",
         contactAddress: "Registered Address: 30 N Gould St, Sheridan, WY 82801, USA",
@@ -472,18 +454,14 @@
         confirmTitle: "Thank you!",
         confirmMessage: "Your message has been sent successfully. We will contact you as soon as possible.",
         copyright: "© 2025 Sistemas de Trading Eficientes LLC. All rights reserved",
-        scrollTop: "Scroll to top",
-        recaptchaError: "Please complete the reCAPTCHA.",
-        errorMessage: "Error sending message. Please try again later."
+        scrollTop: "Scroll to top"
       },
       es: {
-        companyNameLine1: "Sistemas de",
-        companyNameLine2: "Trading Eficientes LLC",
-        tagline: "Trading Manual y Algorítmico",
+        tagline: "Trading Algorítmico y Manual",
         aboutTitle: "Sobre Nosotros",
         aboutText: "Sistemas de Trading Eficientes LLC es una empresa con sede en EE. UU. especializada en el desarrollo de estrategias de trading tanto manuales como algorítmicas, análisis de mercados, gestión de riesgo y psicología del trader, fundamentales para desarrollar una operativa rentable y consistente.",
         servicesTitle: "Nuestros Servicios",
-        service1: "Sistemas de trading manual y algorítmico, personalizados.",
+        service1: "Sistemas de trading algorítmico y manual personalizados.",
         service2: "Gestión de riesgos y análisis de rendimiento.",
         service3: "Investigación de mercados y consultoría.",
         service4: "Soluciones de asignación estratégica y backtesting.",
@@ -503,20 +481,16 @@
         confirmTitle: "¡Gracias!",
         confirmMessage: "Tu mensaje ha sido enviado correctamente. Nos pondremos en contacto contigo lo antes posible.",
         copyright: "© 2025 Sistemas de Trading Eficientes LLC. Todos los derechos reservados",
-        scrollTop: "Volver Arriba",
-        recaptchaError: "Por favor, completa el reCAPTCHA.",
-        errorMessage: "Error al enviar el mensaje. Por favor, inténtalo de nuevo más tarde."
+        scrollTop: "Volver Arriba"
       }
     };
 
     // Idioma predeterminado (español)
     let currentLanguage = 'es';
 
-    // Función para actualizar todos los textos de la web
+    // Función para actualizar todos los textos de la web (excepto el nombre de la empresa)
     function updateContent() {
       const t = translations[currentLanguage];
-      // Header
-      document.getElementById("tagline").innerText = t.tagline;
       // Sección "Sobre Nosotros"
       document.getElementById("aboutTitle").innerText = t.aboutTitle;
       document.getElementById("aboutText").innerText = t.aboutText;
@@ -528,6 +502,7 @@
       document.getElementById("service4").innerText = t.service4;
       document.getElementById("service5").innerText = t.service5;
       // Footer y Contacto
+      document.getElementById("tagline").innerText = t.tagline;
       document.getElementById("contactTitle").innerText = t.contactTitle;
       document.getElementById("contactEmail").innerText = t.contactEmail;
       document.getElementById("contactAddress").innerText = t.contactAddress;
@@ -550,18 +525,17 @@
       document.getElementById('scrollTopBtn').textContent = t.scrollTop;
     }
 
-    // Función para alternar idioma y actualizar el contenido
+    // Función para alternar idioma
     function switchLang() {
       currentLanguage = (currentLanguage === 'es') ? 'en' : 'es';
       document.querySelector('.lang-switch').innerText = currentLanguage.toUpperCase();
       updateContent();
     }
 
-    // Función para mostrar/ocultar el formulario de contacto (popup)
+    // Función para mostrar/ocultar el formulario de contacto
     function toggleContactForm() {
       const formPopup = document.getElementById("formPopup");
       formPopup.style.display = "flex";
-      // Actualiza los placeholders según idioma activo
       const t = translations[currentLanguage];
       document.querySelector('#formPopup input[name="name"]').placeholder = t.placeholderName;
       document.querySelector('#formPopup input[name="email"]').placeholder = t.placeholderEmail;
@@ -569,10 +543,6 @@
     }
     function closeForm() {
       document.getElementById("formPopup").style.display = "none";
-      // Resetea reCAPTCHA al cerrar el formulario
-      if (typeof grecaptcha !== 'undefined') {
-        grecaptcha.reset();
-      }
     }
 
     // Función para mostrar el popup de confirmación
@@ -583,7 +553,7 @@
       document.getElementById("confirmationPopup").style.display = "none";
     }
 
-    // Función para volver arriba con animación suave
+    // Función para volver arriba
     function scrollToTop() {
       window.scrollTo({
         top: 0,
@@ -591,7 +561,7 @@
       });
     }
 
-    // Mostrar/ocultar el botón según el scroll
+    // Mostrar/ocultar el botón de scroll
     window.addEventListener('scroll', function() {
       const scrollBtn = document.getElementById('scrollTopBtn');
       if (window.pageYOffset > 300) {
@@ -601,27 +571,17 @@
       }
     });
 
-    // Manejo del envío del formulario con Formspree y reCAPTCHA
+    // Manejo del envío del formulario
     document.getElementById("contactForm").addEventListener("submit", function(e) {
       e.preventDefault();
       
       const form = e.target;
       const submitBtn = document.getElementById("submitBtn");
       const originalBtnText = submitBtn.textContent;
-      const t = translations[currentLanguage];
       
-      // Verificar reCAPTCHA
-      const recaptchaResponse = grecaptcha.getResponse();
-      if (!recaptchaResponse) {
-        alert(t.recaptchaError);
-        return;
-      }
-
-      // Cambia el texto del botón a "Enviando..."
-      submitBtn.textContent = t.sendingMessage;
+      submitBtn.textContent = translations[currentLanguage].sendingMessage;
       submitBtn.disabled = true;
       
-      // Envío a Formspree
       fetch(form.action, {
         method: "POST",
         body: new FormData(form),
@@ -634,14 +594,12 @@
           showConfirmation();
           closeForm();
           form.reset();
-          // Resetea reCAPTCHA después del envío
-          grecaptcha.reset();
         } else {
-          throw new Error('Error en el envío');
+          throw new Error('Network response was not ok');
         }
       })
       .catch(error => {
-        alert(t.errorMessage);
+        alert(translations[currentLanguage].successMessage || "Error al enviar el mensaje. Por favor inténtalo de nuevo más tarde.");
         console.error("Error:", error);
       })
       .finally(() => {
