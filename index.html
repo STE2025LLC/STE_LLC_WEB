@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Sistemas de Trading Eficientes LLC</title>
   <link rel="icon" href="https://raw.githubusercontent.com/STE2025LLC/STE_LLC.github.io/refs/heads/main/Logo%20Blanco%20Cuadrado.png" type="image/png">
+  <!-- Script de reCAPTCHA -->
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   <style>
     /* ========================
        ESTILOS GENERALES
@@ -220,6 +222,12 @@
       resize: vertical;
       min-height: 100px;
     }
+    /* Estilos para reCAPTCHA */
+    .g-recaptcha {
+      margin: 15px 0;
+      display: flex;
+      justify-content: center;
+    }
     #formPopup button {
       padding: 12px;
       border-radius: 4px;
@@ -300,7 +308,7 @@
       }
       
       .logo {
-        height: 60px;
+        height: 55px;
       }
       
       .lang-switch {
@@ -319,6 +327,12 @@
         right: 20px;
         padding: 10px 15px;
         font-size: 0.9rem;
+      }
+      
+      /* Ajustes para reCAPTCHA en móvil */
+      .g-recaptcha {
+        transform: scale(0.85);
+        transform-origin: center;
       }
     }
 
@@ -374,7 +388,7 @@
   <section>
     <h2 id="servicesTitle">Nuestros Servicios</h2>
     <ul>
-      <li id="service1">Sistemas de trading manual y algorítmico personalizados.</li>
+      <li id="service1">Sistemas de trading algorítmico y manual personalizados.</li>
       <li id="service2">Gestión de riesgos y análisis de rendimiento.</li>
       <li id="service3">Investigación de mercados y consultoría.</li>
       <li id="service4">Soluciones de asignación estratégica y backtesting.</li>
@@ -410,8 +424,11 @@
         <input type="email" name="email" placeholder="Tu email" required>
         <textarea name="message" placeholder="Tu mensaje" required></textarea>
         
+        <!-- Widget de reCAPTCHA - REEMPLAZA TU_SITE_KEY POR TU CLAVE REAL -->
+        <div class="g-recaptcha" data-sitekey="6LcpgBwrAAAAAJGX3hxe5bIW_S0jOtH37RyYKhNG"></div>
+        
         <button type="submit" id="submitBtn">Enviar mensaje</button>
-        <button type="button" onclick="closeForm()">Cancel</button>
+        <button type="button" onclick="closeForm()">Cancelar</button>
       </form>
     </div>
   </div>
@@ -455,7 +472,9 @@
         confirmTitle: "Thank you!",
         confirmMessage: "Your message has been sent successfully. We will contact you as soon as possible.",
         copyright: "© 2025 Sistemas de Trading Eficientes LLC. All rights reserved",
-        scrollTop: "Scroll to top"
+        scrollTop: "Scroll to top",
+        recaptchaError: "Please complete the reCAPTCHA.",
+        errorMessage: "Error sending message. Please try again later."
       },
       es: {
         companyNameLine1: "Sistemas de",
@@ -484,7 +503,9 @@
         confirmTitle: "¡Gracias!",
         confirmMessage: "Tu mensaje ha sido enviado correctamente. Nos pondremos en contacto contigo lo antes posible.",
         copyright: "© 2025 Sistemas de Trading Eficientes LLC. Todos los derechos reservados",
-        scrollTop: "Volver Arriba"
+        scrollTop: "Volver Arriba",
+        recaptchaError: "Por favor, completa el reCAPTCHA.",
+        errorMessage: "Error al enviar el mensaje. Por favor, inténtalo de nuevo más tarde."
       }
     };
 
@@ -548,6 +569,10 @@
     }
     function closeForm() {
       document.getElementById("formPopup").style.display = "none";
+      // Resetea reCAPTCHA al cerrar el formulario
+      if (typeof grecaptcha !== 'undefined') {
+        grecaptcha.reset();
+      }
     }
 
     // Función para mostrar el popup de confirmación
@@ -576,16 +601,24 @@
       }
     });
 
-    // Manejo del envío del formulario con Formspree
+    // Manejo del envío del formulario con Formspree y reCAPTCHA
     document.getElementById("contactForm").addEventListener("submit", function(e) {
       e.preventDefault();
       
       const form = e.target;
       const submitBtn = document.getElementById("submitBtn");
       const originalBtnText = submitBtn.textContent;
+      const t = translations[currentLanguage];
       
-      // Cambia el texto del botón a "Sending..." / "Enviando..."
-      submitBtn.textContent = translations[currentLanguage].sendingMessage;
+      // Verificar reCAPTCHA
+      const recaptchaResponse = grecaptcha.getResponse();
+      if (!recaptchaResponse) {
+        alert(t.recaptchaError);
+        return;
+      }
+
+      // Cambia el texto del botón a "Enviando..."
+      submitBtn.textContent = t.sendingMessage;
       submitBtn.disabled = true;
       
       // Envío a Formspree
@@ -601,12 +634,14 @@
           showConfirmation();
           closeForm();
           form.reset();
+          // Resetea reCAPTCHA después del envío
+          grecaptcha.reset();
         } else {
-          throw new Error('Network response was not ok');
+          throw new Error('Error en el envío');
         }
       })
       .catch(error => {
-        alert(translations[currentLanguage].errorMessage || "Error al enviar el mensaje. Por favor inténtalo de nuevo más tarde.");
+        alert(t.errorMessage);
         console.error("Error:", error);
       })
       .finally(() => {
