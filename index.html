@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="description" content="Sistemas de Trading Eficientes LLC - Desarrollo de estrategias de trading manual y algorítmico personalizadas. Gestión de riesgo, análisis de mercados y formación psicológica para traders.">
+  <meta name="description" content="Maximiza tu rentabilidad con estrategias personalizadas de trading manual y algorítmico. Análisis de mercados, gestión de riesgo y formación psicológica para traders.">
   <title>Sistemas de Trading Eficientes LLC</title>
   <link rel="icon" href="https://raw.githubusercontent.com/STE2025LLC/STE_LLC.github.io/refs/heads/main/Logo%20Blanco%20512x512.webp" type="image/png">
   <link rel="preconnect" href="https://raw.githubusercontent.com">
@@ -201,9 +201,9 @@
       height: 100%;
       background: rgba(0,0,0,0.7);
       z-index: 10000;
-      display: none;
-      justify-content: center;
-      align-items: flex-start;
+      display: none;               /* oculto por defecto */
+      justify-content: center;     /* centra horizontal */
+      align-items: center;         /* centra vertical */
       padding: 20px;
       box-sizing: border-box;
       overflow-y: auto;
@@ -214,7 +214,7 @@
       border-radius: 8px;
       max-width: 500px;
       width: 100%;
-      margin: 20px 0;
+      margin: auto;                /* refuerzo de centrado */
       box-shadow: 0 4px 15px rgba(0,0,0,0.2);
     }
     #formPopup h2 {
@@ -310,109 +310,87 @@
       header {
         padding: 30px 15px 20px;
       }
-      
       header h1 {
         font-size: 1.8rem;
         margin: 5px 0 0;
         display: block;
       }
-      
       .company-name-line {
         display: block;
         line-height: 1.2;
       }
-      
       header p {
         font-size: 1rem;
         margin-top: 5px;
       }
-      
       .logo {
         height: 55px;
         width: 55px;
       }
-      
       .lang-switch {
         top: 10px;
         right: 10px;
         padding: 6px 12px;
         font-size: 0.9rem;
       }
-      
       .hero-image {
         max-height: 250px;
       }
-      
       .scroll-top-btn {
         bottom: 20px;
         right: 20px;
         padding: 10px 15px;
         font-size: 0.9rem;
       }
-      
       #formPopup {
         padding: 10px;
       }
-      
       #formPopup .form-container {
         padding: 20px;
       }
-      
       #formPopup input,
       #formPopup textarea,
       #formPopup button {
         padding: 10px;
         font-size: 0.95rem;
       }
-      
       #formPopup h2 {
         font-size: 1.3rem;
       }
-      
       .confirmation-content {
         padding: 20px;
       }
-      
       .confirmation-content p {
         font-size: 1rem;
       }
-      
       .confirmation-btn {
         padding: 10px 15px;
         font-size: 0.95rem;
       }
     }
-
     @media (max-width: 375px) {
       header h1 {
         font-size: 1.5rem;
       }
-      
       .company-name-line {
         font-size: inherit;
       }
-      
       header p {
         font-size: 0.9rem;
       }
-      
       .logo {
         height: 35px;
         width: 35px;
       }
-      
       .hero-image {
         max-height: 200px;
       }
-      
       #formPopup .form-container {
         padding: 15px;
       }
-      
       #formPopup h2 {
         font-size: 1.2rem;
       }
-      
       #formPopup input,
       #formPopup textarea {
         padding: 8px;
@@ -572,16 +550,14 @@
         confirmBtn: "Aceptar",
         confirmTitle: "¡Gracias!",
         confirmMessage: "Tu mensaje ha sido enviado correctamente. Nos pondremos en contacto contigo lo antes posible.",
-        copyright: "© 2025 Sistemas de Trading Eficientes LLC. Todos los derechos reservados",
+        copyright: "© 2025 Sistemas de Trading Eficientes LLC. Todos los derechos verschiebenescription",
         scrollTop: "Volver Arriba",
         errorMessage: "Error al enviar el mensaje. Por favor, inténtalo de nuevo más tarde."
       }
     };
 
-    // Idioma predeterminado (español)
     let currentLanguage = 'es';
 
-    // Función para actualizar todos los textos de la web
     function updateContent() {
       const t = translations[currentLanguage];
       document.getElementById("tagline").innerText = t.tagline;
@@ -610,14 +586,12 @@
       document.getElementById('scrollTopBtn').textContent = t.scrollTop;
     }
 
-    // Función para alternar idioma
     function switchLang() {
       currentLanguage = (currentLanguage === 'es') ? 'en' : 'es';
       document.querySelector('.lang-switch').innerText = currentLanguage.toUpperCase();
       updateContent();
     }
 
-    // Función para mostrar/ocultar el formulario de contacto
     function toggleContactForm() {
       const formPopup = document.getElementById("formPopup");
       formPopup.style.display = "flex";
@@ -630,7 +604,6 @@
       document.getElementById("formPopup").style.display = "none";
     }
 
-    // Función para mostrar el popup de confirmación
     function showConfirmation() {
       document.getElementById("confirmationPopup").style.display = "flex";
     }
@@ -638,7 +611,6 @@
       document.getElementById("confirmationPopup").style.display = "none";
     }
 
-    // Función para volver arriba con animación suave
     function scrollToTop() {
       window.scrollTo({
         top: 0,
@@ -646,7 +618,6 @@
       });
     }
 
-    // Mostrar/ocultar el botón según el scroll
     window.addEventListener('scroll', function() {
       const scrollBtn = document.getElementById('scrollTopBtn');
       if (window.pageYOffset > 300) {
@@ -656,7 +627,6 @@
       }
     });
 
-    // Manejo del envío del formulario optimizado
     document.getElementById("contactForm").addEventListener("submit", function(e) {
       e.preventDefault();
       
@@ -694,7 +664,6 @@
       });
     });
 
-    // Inicializar contenido al cargar la página
     document.addEventListener("DOMContentLoaded", function() {
       updateContent();
     });
