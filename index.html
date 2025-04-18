@@ -5,8 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Sistemas de Trading Eficientes LLC</title>
   <link rel="icon" href="https://raw.githubusercontent.com/STE2025LLC/STE_LLC.github.io/refs/heads/main/Logo%20Blanco%20Cuadrado.png" type="image/png">
-  <!-- reCAPTCHA con clave de prueba (válida para localhost) -->
-  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   <style>
     /* ========================
        ESTILOS GENERALES
@@ -378,7 +376,7 @@
       <span class="company-name-line">Sistemas de</span>
       <span class="company-name-line">Trading Eficientes LLC</span>
     </h1>
-    <p id="tagline">Trading Manual y Algorítmico</p>
+    <p id="tagline">Trading Algorítmico y Manual</p>
   </header>
 
   <!-- SECCIÓN HERO Y SOBRE NOSOTROS -->
@@ -431,8 +429,8 @@
         <textarea name="message" placeholder="Tu mensaje" required></textarea>
         
         <!-- Widget reCAPTCHA con clave de prueba (válida solo para localhost) -->
-        <div class="g-recaptcha" data-sitekey="6LcpgBwrAAAAAJGX3hxe5bIW_S0jOtH37RyYKhNG"></div>
-        <p class="captcha-note" id="captchaNote">Por favor, verifica que no eres un robot</p>
+        <div class="g-recaptcha" data-sitekey="6LcpgBwrAAAAAJGX3hxe5bIW_S0jOtH37RyYKhNG" id="recaptchaElement"></div>
+        <p class="captcha-note" id="captchaNote">Por favor verifica que no eres un robot</p>
         
         <button type="submit" id="submitBtn">Enviar mensaje</button>
         <button type="button" onclick="closeForm()">Cancel</button>
@@ -455,7 +453,7 @@
       en: {
         companyNameLine1: "Sistemas de",  // Mantenemos en español
         companyNameLine2: "Trading Eficientes LLC",  // Mantenemos en español
-        tagline: "Manual & Algorithmic Trading",
+        tagline: "Algorithmic & Manual Trading",
         aboutTitle: "About Us",
         aboutText: "Sistemas de Trading Eficientes LLC is a US-based company specializing in the development of both manual and algorithmic trading strategies, market analysis, risk management, and trader psychology – all essential for consistent and profitable trading.",
         servicesTitle: "Our Services",
@@ -480,13 +478,13 @@
         confirmMessage: "Your message has been sent successfully. We will contact you as soon as possible.",
         copyright: "© 2025 Sistemas de Trading Eficientes LLC. All rights reserved",
         scrollTop: "Scroll to top",
-        captchaNote: "Please, verify you're not a robot",
-        captchaError: "Please, complete the captcha verification"
+        captchaNote: "Please verify you're not a robot",
+        captchaError: "Please complete the captcha verification"
       },
       es: {
         companyNameLine1: "Sistemas de",
         companyNameLine2: "Trading Eficientes LLC",
-        tagline: "Trading Manual y Algorítmico",
+        tagline: "Trading Algorítmico y Manual",
         aboutTitle: "Sobre Nosotros",
         aboutText: "Sistemas de Trading Eficientes LLC es una empresa con sede en EE. UU. especializada en el desarrollo de estrategias de trading tanto manuales como algorítmicas, análisis de mercados, gestión de riesgo y psicología del trader, fundamentales para desarrollar una operativa rentable y consistente.",
         servicesTitle: "Nuestros Servicios",
@@ -511,13 +509,34 @@
         confirmMessage: "Tu mensaje ha sido enviado correctamente. Nos pondremos en contacto contigo lo antes posible.",
         copyright: "© 2025 Sistemas de Trading Eficientes LLC. Todos los derechos reservados",
         scrollTop: "Volver Arriba",
-        captchaNote: "Por favor, verifica que no eres un robot",
-        captchaError: "Por favor, completa la verificación del captcha"
+        captchaNote: "Por favor verifica que no eres un robot",
+        captchaError: "Por favor completa la verificación del captcha"
       }
     };
 
     // Idioma predeterminado (español)
     let currentLanguage = 'es';
+
+    // Función para cargar reCAPTCHA con el idioma correcto
+    function loadRecaptcha() {
+      // Eliminar script anterior si existe
+      const oldScript = document.querySelector('script[src^="https://www.google.com/recaptcha/api.js"]');
+      if (oldScript) {
+        oldScript.remove();
+      }
+
+      // Crear nuevo script con el idioma correcto
+      const script = document.createElement('script');
+      script.src = `https://www.google.com/recaptcha/api.js?hl=${currentLanguage}`;
+      script.async = true;
+      script.defer = true;
+      document.head.appendChild(script);
+
+      // Resetear el widget si ya existe
+      if (typeof grecaptcha !== 'undefined' && grecaptcha.render) {
+        grecaptcha.reset();
+      }
+    }
 
     // Función para actualizar todos los textos de la web
     function updateContent() {
@@ -557,12 +576,14 @@
       document.getElementById('scrollTopBtn').textContent = t.scrollTop;
       // Nota del captcha
       document.getElementById("captchaNote").innerText = t.captchaNote;
+      
+      // Recargar reCAPTCHA con el nuevo idioma
+      loadRecaptcha();
     }
 
     // Función para alternar idioma y actualizar el contenido
     function switchLang() {
       currentLanguage = (currentLanguage === 'es') ? 'en' : 'es';
-      // Actualiza el texto del botón para mostrar el idioma activo (EN o ES)
       document.querySelector('.lang-switch').innerText = currentLanguage.toUpperCase();
       updateContent();
     }
@@ -612,6 +633,11 @@
       e.preventDefault();
       
       // Verificar el captcha primero
+      if (typeof grecaptcha === 'undefined') {
+        alert(translations[currentLanguage].captchaError);
+        return false;
+      }
+      
       const captchaResponse = grecaptcha.getResponse();
       if(captchaResponse.length == 0) {
         alert(translations[currentLanguage].captchaError);
@@ -643,7 +669,9 @@
           showConfirmation();
           closeForm();
           form.reset();
-          grecaptcha.reset(); // Resetear el captcha
+          if (typeof grecaptcha !== 'undefined') {
+            grecaptcha.reset();
+          }
         } else {
           throw new Error('Network response was not ok');
         }
@@ -660,6 +688,7 @@
 
     // Inicializar contenido al cargar la página
     document.addEventListener("DOMContentLoaded", function() {
+      loadRecaptcha();
       updateContent();
     });
   </script>
