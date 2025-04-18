@@ -666,11 +666,16 @@
       submitBtn.textContent = t.sendingMessage;
       submitBtn.disabled = true;
       
-      fetch(form.action, {
+      // Añadir timestamp para evitar caché en móviles
+      const urlWithCacheBuster = `${form.action}?t=${Date.now()}`;
+      
+      // Primero intentamos con fetch
+      fetch(urlWithCacheBuster, {
         method: "POST",
         body: new FormData(form),
         headers: {
-          'Accept': 'application/json'
+          'Accept': 'application/json',
+          'Cache-Control': 'no-cache'
         }
       })
       .then(response => {
@@ -683,8 +688,18 @@
         }
       })
       .catch(error => {
+        console.error("Error con fetch:", error);
+        // Fallback para móviles: intentamos con sendBeacon
+        if (navigator.sendBeacon) {
+          const formData = new FormData(form);
+          if (navigator.sendBeacon(form.action, formData)) {
+            showConfirmation();
+            closeForm();
+            form.reset();
+            return;
+          }
+        }
         alert(t.errorMessage);
-        console.error("Error:", error);
       })
       .finally(() => {
         submitBtn.textContent = originalBtnText;
