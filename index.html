@@ -4,8 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Sistemas de Trading Eficientes LLC</title>
-  <!-- Favicon blanco (versión procesada) -->
   <link rel="icon" href="https://raw.githubusercontent.com/STE2025LLC/STE_LLC.github.io/refs/heads/main/Logo%20Blanco%20Cuadrado.png" type="image/png">
+  <!-- reCAPTCHA con clave de prueba (válida para localhost) -->
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   <style>
     /* ========================
        ESTILOS GENERALES
@@ -22,7 +23,7 @@
       background-color: #1a1a2e;
       color: white;
       text-align: center;
-      padding: 50px 20px 30px; /* Ajustado para el logo */
+      padding: 50px 20px 30px;
       position: relative;
     }
     .logo-container {
@@ -37,12 +38,14 @@
       font-size: 2.5rem;
       margin: 10px 0 0;
     }
+    .company-name-line {
+      display: inline;
+    }
     header p {
       font-size: 1.2rem;
       margin-top: 10px;
       color: #bbb;
     }
-    /* Botón para cambiar idioma siempre visible en la esquina superior derecha */
     .lang-switch {
       position: absolute;
       top: 20px;
@@ -150,7 +153,7 @@
       font-size: 0.8rem;
     }
     /* -------------------------
-       BOTÓN VOLVER ARRIBA - MEJORADO
+       BOTÓN VOLVER ARRIBA
        ------------------------- */
     .scroll-top-btn {
       position: fixed;
@@ -219,6 +222,18 @@
       resize: vertical;
       min-height: 100px;
     }
+    /* Estilos para el captcha */
+    .g-recaptcha {
+      margin: 15px 0;
+      display: flex;
+      justify-content: center;
+    }
+    .captcha-note {
+      color: #666;
+      font-size: 0.8rem;
+      text-align: center;
+      margin-bottom: 15px;
+    }
     #formPopup button {
       padding: 12px;
       border-radius: 4px;
@@ -278,23 +293,28 @@
        MEDIA QUERIES PARA MÓVIL
        ======================== */
     @media (max-width: 600px) {
-      /* Ajustes para el encabezado */
       header {
-        padding: 30px 15px 20px; /* Reducimos el padding superior e inferior */
+        padding: 30px 15px 20px;
       }
       
       header h1 {
-        font-size: 1.8rem; /* Tamaño más pequeño para el título */
-        margin: 5px 0 0; /* Menos margen */
+        font-size: 1.8rem;
+        margin: 5px 0 0;
+        display: block;
+      }
+      
+      .company-name-line {
+        display: block;
+        line-height: 1.2;
       }
       
       header p {
-        font-size: 1rem; /* Tamaño más pequeño para el subtítulo */
-        margin-top: 5px; /* Menos espacio arriba */
+        font-size: 1rem;
+        margin-top: 5px;
       }
       
       .logo {
-        height: 40px; /* Logo más pequeño */
+        height: 40px;
       }
       
       .lang-switch {
@@ -304,24 +324,31 @@
         font-size: 0.9rem;
       }
       
-      /* Ajustes para la imagen hero */
       .hero-image {
-        height: 250px; /* Altura reducida */
+        height: 250px;
       }
       
-      /* Ajustes para el botón de scroll */
       .scroll-top-btn {
         bottom: 20px;
         right: 20px;
         padding: 10px 15px;
         font-size: 0.9rem;
       }
+      
+      /* Ajustes para el captcha en móvil */
+      .g-recaptcha {
+        transform: scale(0.85);
+        transform-origin: center;
+      }
     }
 
-    /* Para pantallas muy pequeñas (ej. iPhone SE) */
     @media (max-width: 375px) {
       header h1 {
         font-size: 1.5rem;
+      }
+      
+      .company-name-line {
+        font-size: inherit;
       }
       
       header p {
@@ -339,15 +366,18 @@
   </style>
 </head>
 <body>
-  <!-- BOTÓN PARA CAMBIAR IDIOMA (siempre visible) -->
+  <!-- BOTÓN PARA CAMBIAR IDIOMA -->
   <button class="lang-switch" onclick="switchLang()">EN</button>
 
-  <!-- HEADER CON LOGO BLANCO -->
+  <!-- HEADER CON LOGO -->
   <header>
     <div class="logo-container">
       <img src="https://raw.githubusercontent.com/STE2025LLC/STE_LLC.github.io/refs/heads/main/logo%20blanco%2C%20sin%20fondo.png" alt="Logo Sistemas de Trading Eficientes LLC" class="logo">
     </div>
-    <h1 id="companyName">Sistemas de Trading Eficientes LLC</h1>
+    <h1 id="companyName">
+      <span class="company-name-line">Sistemas de</span>
+      <span class="company-name-line">Trading Eficientes LLC</span>
+    </h1>
     <p id="tagline">Trading Algorítmico y Manual</p>
   </header>
 
@@ -390,7 +420,7 @@
   <!-- BOTÓN VOLVER ARRIBA -->
   <button class="scroll-top-btn" onclick="scrollToTop()" id="scrollTopBtn">Volver Arriba</button>
 
-  <!-- POPUP DEL FORMULARIO DE CONTACTO -->
+  <!-- POPUP DEL FORMULARIO DE CONTACTO CON CAPTCHA -->
   <div id="formPopup">
     <div class="form-container">
       <h2 id="formTitle">Contáctenos</h2>
@@ -399,6 +429,11 @@
         <input type="text" name="name" placeholder="Tu nombre" required>
         <input type="email" name="email" placeholder="Tu email" required>
         <textarea name="message" placeholder="Tu mensaje" required></textarea>
+        
+        <!-- Widget reCAPTCHA con clave de prueba (válida solo para localhost) -->
+        <div class="g-recaptcha" data-sitekey="6LcpgBwrAAAAAJGX3hxe5bIW_S0jOtH37RyYKhNG"></div>
+        <p class="captcha-note" id="captchaNote">Por favor verifica que no eres un robot</p>
+        
         <button type="submit" id="submitBtn">Enviar mensaje</button>
         <button type="button" onclick="closeForm()">Cancel</button>
       </form>
@@ -415,10 +450,11 @@
   </div>
 
   <script>
-    // Objeto de traducciones para inglés y español.
+    // Objeto de traducciones para inglés y español
     const translations = {
       en: {
-        companyName: "Sistemas de Trading Eficientes LLC",
+        companyNameLine1: "Sistemas de",  // Mantenemos en español
+        companyNameLine2: "Trading Eficientes LLC",  // Mantenemos en español
         tagline: "Algorithmic & Manual Trading",
         aboutTitle: "About Us",
         aboutText: "Sistemas de Trading Eficientes LLC is a US-based company specializing in the development of both manual and algorithmic trading strategies, market analysis, risk management, and trader psychology – all essential for consistent and profitable trading.",
@@ -439,15 +475,17 @@
         submitBtn: "Send Message",
         cancelBtn: "Cancel",
         sendingMessage: "Sending...",
-        successMessage: "Your message has been sent successfully!",
         confirmBtn: "OK",
         confirmTitle: "Thank you!",
         confirmMessage: "Your message has been sent successfully. We will contact you as soon as possible.",
         copyright: "© 2025 Sistemas de Trading Eficientes LLC. All rights reserved",
-        scrollTop: "Scroll to top"
+        scrollTop: "Scroll to top",
+        captchaNote: "Please, verify you're not a robot",
+        captchaError: "Please, complete the captcha verification"
       },
       es: {
-        companyName: "Sistemas de Trading Eficientes LLC",
+        companyNameLine1: "Sistemas de",
+        companyNameLine2: "Trading Eficientes LLC",
         tagline: "Trading Algorítmico y Manual",
         aboutTitle: "Sobre Nosotros",
         aboutText: "Sistemas de Trading Eficientes LLC es una empresa con sede en EE. UU. especializada en el desarrollo de estrategias de trading tanto manuales como algorítmicas, análisis de mercados, gestión de riesgo y psicología del trader, fundamentales para desarrollar una operativa rentable y consistente.",
@@ -468,12 +506,13 @@
         submitBtn: "Enviar mensaje",
         cancelBtn: "Cancelar",
         sendingMessage: "Enviando...",
-        successMessage: "¡Tu mensaje ha sido enviado con éxito!",
         confirmBtn: "Aceptar",
         confirmTitle: "¡Gracias!",
         confirmMessage: "Tu mensaje ha sido enviado correctamente. Nos pondremos en contacto contigo lo antes posible.",
         copyright: "© 2025 Sistemas de Trading Eficientes LLC. Todos los derechos reservados",
-        scrollTop: "Volver Arriba"
+        scrollTop: "Volver Arriba",
+        captchaNote: "Por favor, verifica que no eres un robot",
+        captchaError: "Por favor, completa la verificación del captcha"
       }
     };
 
@@ -484,7 +523,6 @@
     function updateContent() {
       const t = translations[currentLanguage];
       // Header
-      document.getElementById("companyName").innerText = t.companyName;
       document.getElementById("tagline").innerText = t.tagline;
       // Sección "Sobre Nosotros"
       document.getElementById("aboutTitle").innerText = t.aboutTitle;
@@ -517,6 +555,8 @@
       document.getElementById("copyright").innerText = t.copyright;
       // Botón "Volver Arriba"
       document.getElementById('scrollTopBtn').textContent = t.scrollTop;
+      // Nota del captcha
+      document.getElementById("captchaNote").innerText = t.captchaNote;
     }
 
     // Función para alternar idioma y actualizar el contenido
@@ -567,10 +607,17 @@
       }
     });
 
-    // Manejo del envío del formulario con Formspree
+    // Manejo del envío del formulario con Formspree y reCAPTCHA
     document.getElementById("contactForm").addEventListener("submit", function(e) {
       e.preventDefault();
       
+      // Verificar el captcha primero
+      const captchaResponse = grecaptcha.getResponse();
+      if(captchaResponse.length == 0) {
+        alert(translations[currentLanguage].captchaError);
+        return false;
+      }
+
       const form = e.target;
       const submitBtn = document.getElementById("submitBtn");
       const originalBtnText = submitBtn.textContent;
@@ -579,10 +626,14 @@
       submitBtn.textContent = translations[currentLanguage].sendingMessage;
       submitBtn.disabled = true;
       
+      // Añadir el captcha al FormData
+      const formData = new FormData(form);
+      formData.append('g-recaptcha-response', captchaResponse);
+      
       // Envío a Formspree
       fetch(form.action, {
         method: "POST",
-        body: new FormData(form),
+        body: formData,
         headers: {
           'Accept': 'application/json'
         }
@@ -592,6 +643,7 @@
           showConfirmation();
           closeForm();
           form.reset();
+          grecaptcha.reset(); // Resetear el captcha
         } else {
           throw new Error('Network response was not ok');
         }
