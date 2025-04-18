@@ -5,10 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <meta name="description" content="Sistemas de Trading Eficientes LLC - Desarrollo de estrategias de trading manual y algorítmico personalizadas. Gestión de riesgo, análisis de mercados y formación psicológica para traders.">
   <title>Sistemas de Trading Eficientes LLC</title>
-  <link rel="icon" href="https://raw.githubusercontent.com/STE2025LLC/STE_LLC.github.io/refs/heads/main/Logo%20Blanco%20Cuadrado.png" type="image/png">
+  <link rel="icon" href="https://raw.githubusercontent.com/STE2025LLC/STE_LLC.github.io/refs/heads/main/Logo%20Blanco%20512x512.webp" type="image/png">
+  <link rel="preconnect" href="https://raw.githubusercontent.com">
+  
   <style>
     /* ========================
-       ESTILOS GENERALES
+       ESTILOS GENERALES OPTIMIZADOS
        ======================== */
     body {
       font-family: "Segoe UI", sans-serif;
@@ -30,8 +32,10 @@
     }
     .logo {
       height: 100px;
-      width: auto;
+      width: 100px;
       object-fit: contain;
+      display: block;
+      margin: 0 auto;
     }
     header h1 {
       font-size: 2.5rem;
@@ -96,11 +100,15 @@
     }
     .hero-image {
       width: 100%;
-      height: 400px;
+      max-width: 800px;
+      height: auto;
+      max-height: 400px;
       object-fit: cover;
-      margin-bottom: 20px;
+      margin: 0 auto 20px;
+      display: block;
       border-radius: 5px;
       box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      will-change: transform;
     }
     /* ========================
        FOOTER & CONTACTO
@@ -183,7 +191,7 @@
       display: flex;
     }
     /* ------------------------
-       POPUP DEL FORMULARIO
+       POPUP DEL FORMULARIO OPTIMIZADO
        ------------------------ */
     #formPopup {
       position: fixed;
@@ -195,10 +203,10 @@
       z-index: 10000;
       display: none;
       justify-content: center;
-      align-items: flex-start; /* Cambiado de center a flex-start para mejor scroll en móvil */
+      align-items: flex-start;
       padding: 20px;
       box-sizing: border-box;
-      overflow-y: auto; /* Permite scroll si el formulario es muy largo */
+      overflow-y: auto;
     }
     #formPopup .form-container {
       background: white;
@@ -206,13 +214,13 @@
       border-radius: 8px;
       max-width: 500px;
       width: 100%;
-      margin: 20px 0; /* Espacio arriba y abajo */
+      margin: 20px 0;
       box-shadow: 0 4px 15px rgba(0,0,0,0.2);
     }
     #formPopup h2 {
       color: #1a1a2e;
       margin-top: 0;
-      font-size: 1.5rem; /* Tamaño más adecuado para móviles */
+      font-size: 1.5rem;
     }
     #formPopup input,
     #formPopup textarea {
@@ -228,7 +236,6 @@
       resize: vertical;
       min-height: 120px;
     }
-    /* Campo oculto de Formspree */
     input[name="_gotcha"] {
       display: none !important;
     }
@@ -297,7 +304,7 @@
       margin: 0 auto;
     }
     /* ========================
-       MEDIA QUERIES PARA MÓVIL
+       MEDIA QUERIES PARA MÓVIL OPTIMIZADAS
        ======================== */
     @media (max-width: 600px) {
       header {
@@ -322,6 +329,7 @@
       
       .logo {
         height: 55px;
+        width: 55px;
       }
       
       .lang-switch {
@@ -332,7 +340,7 @@
       }
       
       .hero-image {
-        height: 250px;
+        max-height: 250px;
       }
       
       .scroll-top-btn {
@@ -342,10 +350,8 @@
         font-size: 0.9rem;
       }
       
-      /* Mejoras específicas para el formulario en móviles */
       #formPopup {
         padding: 10px;
-        align-items: flex-start;
       }
       
       #formPopup .form-container {
@@ -392,13 +398,13 @@
       
       .logo {
         height: 35px;
+        width: 35px;
       }
       
       .hero-image {
-        height: 200px;
+        max-height: 200px;
       }
       
-      /* Ajustes adicionales para pantallas muy pequeñas */
       #formPopup .form-container {
         padding: 15px;
       }
@@ -419,10 +425,15 @@
   <!-- BOTÓN PARA CAMBIAR IDIOMA -->
   <button class="lang-switch" onclick="switchLang()">EN</button>
 
-  <!-- HEADER CON LOGO -->
+  <!-- HEADER CON LOGO OPTIMIZADO -->
   <header>
     <div class="logo-container">
-      <img src="https://raw.githubusercontent.com/STE2025LLC/STE_LLC.github.io/refs/heads/main/logo%20blanco%2C%20sin%20fondo.png" alt="Logo Sistemas de Trading Eficientes LLC" class="logo">
+      <img src="https://raw.githubusercontent.com/STE2025LLC/STE_LLC.github.io/refs/heads/main/logo%20blanco%2C%20sin%20fondo.webp" 
+           alt="Logo Sistemas de Trading Eficientes LLC" 
+           class="logo"
+           width="100"
+           height="100"
+           loading="lazy">
     </div>
     <h1 id="companyName">
       <span class="company-name-line">Sistemas de</span>
@@ -431,9 +442,14 @@
     <p id="tagline">Trading Manual y Algorítmico</p>
   </header>
 
-  <!-- SECCIÓN HERO Y SOBRE NOSOTROS -->
+  <!-- SECCIÓN HERO Y SOBRE NOSOTROS CON IMAGEN OPTIMIZADA -->
   <section>
-    <img class="hero-image" src="https://raw.githubusercontent.com/STE2025LLC/STE_LLC.github.io/refs/heads/main/ImagenPortada.avif" alt="Imagen Portada">
+    <img class="hero-image" 
+         src="https://raw.githubusercontent.com/STE2025LLC/STE_LLC.github.io/refs/heads/main/ImagenPortada.webp" 
+         alt="Imagen Portada"
+         width="800"
+         height="400"
+         loading="lazy">
     <h2 id="aboutTitle">Sobre Nosotros</h2>
     <p id="aboutText">
       Sistemas de Trading Eficientes LLC es una empresa con sede en EE. UU. especializada en el desarrollo de estrategias de trading tanto manuales como algorítmicas, análisis de mercados, gestión de riesgo y psicología del trader, fundamentales para desarrollar una operativa rentable y consistente.
@@ -470,13 +486,13 @@
   <!-- BOTÓN VOLVER ARRIBA -->
   <button class="scroll-top-btn" onclick="scrollToTop()" id="scrollTopBtn">Volver Arriba</button>
 
-  <!-- POPUP DEL FORMULARIO DE CONTACTO (VERSIÓN FORMSPREE NATIVO) -->
+  <!-- POPUP DEL FORMULARIO DE CONTACTO OPTIMIZADO -->
   <div id="formPopup">
     <div class="form-container">
       <h2 id="formTitle">Contáctenos</h2>
-      <form id="contactForm" action="https://formspree.io/f/xkgjlqnr" method="POST">
+      <form id="contactForm" action="https://formspree.io/f/xwplygjp" method="POST">
         <input type="hidden" name="_subject" value="Nuevo mensaje desde la web">
-        <input type="hidden" name="_gotcha"> <!-- Campo anti-spam de Formspree -->
+        <input type="hidden" name="_gotcha">
         
         <input type="text" name="name" placeholder="Tu nombre" required>
         <input type="email" name="email" placeholder="Tu email" required>
@@ -498,7 +514,7 @@
   </div>
 
   <script>
-    // Objeto de traducciones para inglés y español
+    // Objeto de traducciones optimizado
     const translations = {
       en: {
         companyNameLine1: "Sistemas de",
@@ -568,53 +584,43 @@
     // Función para actualizar todos los textos de la web
     function updateContent() {
       const t = translations[currentLanguage];
-      // Header
       document.getElementById("tagline").innerText = t.tagline;
-      // Sección "Sobre Nosotros"
       document.getElementById("aboutTitle").innerText = t.aboutTitle;
       document.getElementById("aboutText").innerText = t.aboutText;
-      // Sección de Servicios
       document.getElementById("servicesTitle").innerText = t.servicesTitle;
       document.getElementById("service1").innerText = t.service1;
       document.getElementById("service2").innerText = t.service2;
       document.getElementById("service3").innerText = t.service3;
       document.getElementById("service4").innerText = t.service4;
       document.getElementById("service5").innerText = t.service5;
-      // Footer y Contacto
       document.getElementById("contactTitle").innerText = t.contactTitle;
       document.getElementById("contactEmail").innerText = t.contactEmail;
       document.getElementById("contactAddress").innerText = t.contactAddress;
       document.getElementById("contactToggle").innerText = t.contactFormBtn;
-      // Popup del formulario
       document.getElementById("formTitle").innerText = t.formTitle;
       document.querySelector('#formPopup input[name="name"]').placeholder = t.placeholderName;
       document.querySelector('#formPopup input[name="email"]').placeholder = t.placeholderEmail;
       document.querySelector('#formPopup textarea').placeholder = t.placeholderMessage;
       document.getElementById("submitBtn").innerText = t.submitBtn;
-      // Actualizamos el botón "Cancelar" en el popup
       document.querySelector('#formPopup button[type="button"]').innerText = t.cancelBtn;
-      // Popup de confirmación
       document.getElementById("confirmBtn").innerText = t.confirmBtn;
       document.getElementById("confirmTitle").innerText = t.confirmTitle;
       document.getElementById("confirmMessage").innerText = t.confirmMessage;
-      // Footer general
       document.getElementById("copyright").innerText = t.copyright;
-      // Botón "Volver Arriba"
       document.getElementById('scrollTopBtn').textContent = t.scrollTop;
     }
 
-    // Función para alternar idioma y actualizar el contenido
+    // Función para alternar idioma
     function switchLang() {
       currentLanguage = (currentLanguage === 'es') ? 'en' : 'es';
       document.querySelector('.lang-switch').innerText = currentLanguage.toUpperCase();
       updateContent();
     }
 
-    // Función para mostrar/ocultar el formulario de contacto (popup)
+    // Función para mostrar/ocultar el formulario de contacto
     function toggleContactForm() {
       const formPopup = document.getElementById("formPopup");
       formPopup.style.display = "flex";
-      // Actualiza los placeholders según idioma activo
       const t = translations[currentLanguage];
       document.querySelector('#formPopup input[name="name"]').placeholder = t.placeholderName;
       document.querySelector('#formPopup input[name="email"]').placeholder = t.placeholderEmail;
@@ -650,7 +656,7 @@
       }
     });
 
-    // Manejo del envío del formulario con Formspree (versión nativa)
+    // Manejo del envío del formulario optimizado
     document.getElementById("contactForm").addEventListener("submit", function(e) {
       e.preventDefault();
       
@@ -662,7 +668,6 @@
       submitBtn.textContent = t.sendingMessage;
       submitBtn.disabled = true;
       
-      // Envío estándar a Formspree
       fetch(form.action, {
         method: "POST",
         body: new FormData(form),
