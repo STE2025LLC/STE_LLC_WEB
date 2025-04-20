@@ -1,43 +1,4 @@
-<script type="text/javascript">
-        var gk_isXlsx = false;
-        var gk_xlsxFileLookup = {};
-        var gk_fileData = {};
-        function filledCell(cell) {
-          return cell !== '' && cell != null;
-        }
-        function loadFileData(filename) {
-        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
-            try {
-                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
-                var firstSheetName = workbook.SheetNames[0];
-                var worksheet = workbook.Sheets[firstSheetName];
-
-                // Convert sheet to JSON to filter blank rows
-                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
-                // Filter out blank rows (rows where all cells are empty, null, or undefined)
-                var filteredData = jsonData.filter(row => row.some(filledCell));
-
-                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
-                var headerRowIndex = filteredData.findIndex((row, index) =>
-                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
-                );
-                // Fallback
-                if (headerRowIndex === -1 || headerRowIndex > 25) {
-                  headerRowIndex = 0;
-                }
-
-                // Convert filtered JSON back to CSV
-                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
-                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
-                return csv;
-            } catch (e) {
-                console.error(e);
-                return "";
-            }
-        }
-        return gk_fileData[filename] || "";
-        }
-        </script><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
@@ -545,15 +506,15 @@
     <div class="footer-content">
       <div class="footer-contact">
         <h3 id="contactTitle">Contacto</h3>
-        <p id="contactEmail"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="85ecebe3eac5f6ecf6f1e0e8e4f6e1e0f1f7e4e1ecebe2e0e3ece6ece0ebf1e0f6abe6eae8">[email&#160;protected]</a></p>
+        <p id="contactEmail">info@sistemasdetradingeficientes.com</p>
         <button class="contact-form-btn" onclick="toggleContactForm()" id="contactToggle">Formulario de contacto</button>
       </div>
       <div class="footer-info">
         <p class="footer-address" id="contactAddress">Dirección registrada: 30 N Gould St, Sheridan, WY 82801, EE.UU.</p>
         <p class="copyright" id="copyright">
-          <span class="desktop-line">© 2025 Sistemas de Trading Eficientes LLC. Todos los derechos reservados</span>
+          <span class="desktop-line">© 2025 Sistemas de Trading Eficientes LLC. Todos los derechos reservados.</span>
           <span class="mobile-line">© 2025 Sistemas de Trading Eficientes LLC.</span>
-          <span class="mobile-line">Todos los derechos reservados</span>
+          <span class="mobile-line">Todos los derechos reservados.</span>
         </p>
       </div>
     </div>
@@ -589,7 +550,6 @@
     </div>
   </div>
 
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
   <script>
     // Objeto de traducciones optimizado
     const translations = {
@@ -620,9 +580,9 @@
         confirmBtn: "OK",
         confirmTitle: "Thank you!",
         confirmMessage: "Your message has been sent successfully. We will contact you as soon as possible.",
-        copyrightDesktop: "© 2025 Sistemas de Trading Eficientes LLC. All rights reserved",
+        copyrightDesktop: "© 2025 Sistemas de Trading Eficientes LLC. All rights reserved.",
         copyrightLine1: "© 2025 Sistemas de Trading Eficientes LLC.",
-        copyrightLine2: "All rights reserved",
+        copyrightLine2: "All rights reserved.",
         scrollTop: "Scroll to top",
         errorMessage: "Error sending message. Please try again later."
       },
@@ -653,9 +613,9 @@
         confirmBtn: "Aceptar",
         confirmTitle: "¡Gracias!",
         confirmMessage: "Tu mensaje ha sido enviado correctamente. Nos pondremos en contacto contigo lo antes posible.",
-        copyrightDesktop: "© 2025 Sistemas de Trading Eficientes LLC. Todos los derechos reservados",
+        copyrightDesktop: "© 2025 Sistemas de Trading Eficientes LLC. Todos los derechos reservados.",
         copyrightLine1: "© 2025 Sistemas de Trading Eficientes LLC.",
-        copyrightLine2: "Todos los derechos reservados",
+        copyrightLine2: "Todos los derechos reservados.",
         scrollTop: "Volver Arriba",
         errorMessage: "Error al enviar el mensaje. Por favor, inténtalo de nuevo más tarde."
       }
@@ -812,13 +772,6 @@
 
     document.addEventListener("DOMContentLoaded", function() {
       updateContent();
-    });
-  </script>
-  <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9336b4a3a8aebfe7',t:'MTc0NTE3Mzc1MC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c(); createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
-  <script>
-    // Desactivar el clic derecho
-    document.addEventListener('contextmenu', function(e) {
-      e.preventDefault();
     });
   </script>
 </body>
