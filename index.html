@@ -300,6 +300,13 @@
       display: flex;
       justify-content: center;
     }
+    .recaptcha-error {
+      color: #d32f2f;
+      margin: -10px 0 15px 0;
+      font-size: 0.9rem;
+      text-align: center;
+      display: none;
+    }
     /* -------------------------
        POPUP DE CONFIRMACIÓN
        ------------------------- */
@@ -597,6 +604,7 @@
         
         <!-- reCAPTCHA v2 -->
         <div class="g-recaptcha" data-sitekey="6LcpgBwrAAAAAJGX3hxe5bIW_S0jOtH37RyYKhNG"></div>
+        <div class="recaptcha-error" id="recaptchaError"></div>
         
         <button type="submit" id="submitBtn">Enviar mensaje</button>
         <button type="button" onclick="closeForm()">Cancelar</button>
@@ -659,7 +667,8 @@
         copyrightLine1: "© 2025 Sistemas de Trading Eficientes LLC.",
         copyrightLine2: "All rights reserved",
         scrollTop: "Scroll to top",
-        errorMessage: "Error sending message. Please try again later."
+        errorMessage: "Error sending message. Please try again later.",
+        recaptchaError: "Please verify that you're not a robot"
       },
       es: {
         companyNameLine1: "Sistemas de",
@@ -700,7 +709,8 @@
         copyrightLine1: "© 2025 Sistemas de Trading Eficientes LLC.",
         copyrightLine2: "Todos los derechos reservados",
         scrollTop: "Volver Arriba",
-        errorMessage: "Error al enviar el mensaje. Por favor, inténtalo de nuevo más tarde."
+        errorMessage: "Error al enviar el mensaje. Por favor, inténtalo de nuevo más tarde.",
+        recaptchaError: "Por favor, verifica que no eres un robot"
       }
     };
 
@@ -822,17 +832,29 @@
     document.getElementById("contactForm").addEventListener("submit", function(e) {
       e.preventDefault();
       
-      // Verificar reCAPTCHA
+      const t = translations[currentLanguage];
       const response = grecaptcha.getResponse();
+      const errorElement = document.getElementById("recaptchaError");
+      
+      // Verificar reCAPTCHA primero
       if(response.length == 0) {
-        alert(translations[currentLanguage].requiredField);
+        errorElement.textContent = t.recaptchaError;
+        errorElement.style.display = "block";
+        
+        // Hacer scroll al reCAPTCHA
+        document.querySelector('.g-recaptcha').scrollIntoView({
+          behavior: 'smooth',
+          block: 'center'
+        });
+        
         return false;
+      } else {
+        errorElement.style.display = "none";
       }
 
       const form = e.target;
       const submitBtn = document.getElementById("submitBtn");
       const originalBtnText = submitBtn.textContent;
-      const t = translations[currentLanguage];
       
       submitBtn.textContent = t.sendingMessage;
       submitBtn.disabled = true;
