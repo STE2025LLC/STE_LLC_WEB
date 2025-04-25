@@ -1,63 +1,40 @@
-<script type="text/javascript">
-        var gk_isXlsx = false;
-        var gk_xlsxFileLookup = {};
-        var gk_fileData = {};
-        function filledCell(cell) {
-          return cell !== '' && cell != null;
-        }
-        function loadFileData(filename) {
-        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
-            try {
-                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
-                var firstSheetName = workbook.SheetNames[0];
-                var worksheet = workbook.Sheets[firstSheetName];
-
-                // Convert sheet to JSON to filter blank rows
-                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
-                // Filter out blank rows (rows where all cells are empty, null, or undefined)
-                var filteredData = jsonData.filter(row => row.some(filledCell));
-
-                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
-                var headerRowIndex = filteredData.findIndex((row, index) =>
-                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
-                );
-                // Fallback
-                if (headerRowIndex === -1 || headerRowIndex > 25) {
-                  headerRowIndex = 0;
-                }
-
-                // Convert filtered JSON back to CSV
-                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
-                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
-                return csv;
-            } catch (e) {
-                console.error(e);
-                return "";
-            }
-        }
-        return gk_fileData[filename] || "";
-        }
-        </script><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="description" content="Maximiza tu rentabilidad con estrategias personalizadas de trading manual y algorítmico. Análisis de mercados, gestión de riesgo y formación psicológica para traders.">
-  <title>Sistemas de Trading Eficientes LLC</title>
+  <meta name="description" content="Sistemas de Trading Eficientes LLC - Expertos en trading manual y algorítmico. Estrategias personalizadas, gestión de riesgo y formación psicológica para traders. Oficinas en Sheridan, WY, EE.UU.">
+  <meta name="keywords" content="trading algorítmico, sistemas de trading, gestión de riesgo, psicología del trader, estrategias trading, backtesting, análisis de mercados">
+  <meta name="author" content="Sistemas de Trading Eficientes LLC">
+  <meta property="og:title" content="Sistemas de Trading Eficientes LLC - Trading Manual y Algorítmico">
+  <meta property="og:description" content="Expertos en desarrollo de estrategias de trading personalizadas con sede en EE.UU.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://sistemasdetradingeficientes.com">
+  <meta property="og:image" content="https://raw.githubusercontent.com/STE2025LLC/STE_LLC_WEB/refs/heads/main/Logo%20Blanco%20512x512.webp">
+  <meta property="og:site_name" content="Sistemas de Trading Eficientes LLC">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Sistemas de Trading Eficientes LLC">
+  <meta name="twitter:description" content="Expertos en trading manual y algorítmico con sede en EE.UU.">
+  <meta name="twitter:image" content="https://raw.githubusercontent.com/STE2025LLC/STE_LLC_WEB/refs/heads/main/Logo%20Blanco%20512x512.webp">
+  <title>Sistemas de Trading Eficientes LLC - Trading Manual y Algorítmico</title>
   <link rel="icon" href="https://raw.githubusercontent.com/STE2025LLC/STE_LLC_WEB/refs/heads/main/Logo%20Blanco%20512x512.webp" type="image/png">
+  <link rel="canonical" href="https://sistemasdetradingeficientes.com">
   <link rel="preconnect" href="https://raw.githubusercontent.com">
+  <link rel="preload" href="https://raw.githubusercontent.com/STE2025LLC/STE_LLC_WEB/refs/heads/main/logo%20blanco%2C%20sin%20fondo.webp" as="image">
+  <link rel="preload" href="https://raw.githubusercontent.com/STE2025LLC/STE_LLC_WEB/refs/heads/main/ImagenPortada.webp" as="image">
   
   <style>
     /* ========================
        ESTILOS GENERALES OPTIMIZADOS
        ======================== */
     body {
-      font-family: "Segoe UI", sans-serif;
+      font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
       background-color: #f0f2f5;
       margin: 0;
       padding: 0;
       line-height: 1.6;
       position: relative;
+      color: #333;
     }
     header {
       background-color: #1a1a2e;
@@ -79,6 +56,7 @@
     header h1 {
       font-size: 2.5rem;
       margin: 10px 0 0;
+      line-height: 1.2;
     }
     .company-name-line {
       display: inline;
@@ -272,9 +250,12 @@
       color: #1a1a2e;
       margin-top: 0;
       font-size: 1.5rem;
+      border-bottom: none;
+      padding-bottom: 0;
     }
     #formPopup input,
-    #formPopup textarea {
+    #formPopup textarea,
+    #formPopup select {
       padding: 12px;
       border: 1px solid #ddd;
       border-radius: 4px;
@@ -289,7 +270,8 @@
       resize: vertical;
       min-height: 120px;
     }
-    input[name="_gotcha"] {
+    input[name="_gotcha"],
+    input[name="_honey"] {
       display: none !important;
     }
     #formPopup button {
@@ -312,6 +294,11 @@
       color: #1a1a2e;
       border: 1px solid #ddd;
       margin-top: 5px;
+    }
+    .g-recaptcha {
+      margin-bottom: 15px;
+      display: flex;
+      justify-content: center;
     }
     /* -------------------------
        POPUP DE CONFIRMACIÓN
@@ -494,6 +481,31 @@
   </style>
 </head>
 <body>
+  <!-- Schema Markup para SEO -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Sistemas de Trading Eficientes LLC",
+    "url": "https://sistemasdetradingeficientes.com",
+    "logo": "https://raw.githubusercontent.com/STE2025LLC/STE_LLC_WEB/refs/heads/main/Logo%20Blanco%20512x512.webp",
+    "description": "Especialistas en sistemas de trading manual y algorítmico con sede en EE.UU.",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "30 N Gould St",
+      "addressLocality": "Sheridan",
+      "addressRegion": "WY",
+      "postalCode": "82801",
+      "addressCountry": "US"
+    },
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "contactType": "customer service",
+      "email": "info@sistemasdetradingeficientes.com"
+    }
+  }
+  </script>
+
   <!-- BOTÓN PARA CAMBIAR IDIOMA -->
   <button class="lang-switch" onclick="switchLang()">EN</button>
 
@@ -518,7 +530,7 @@
   <section>
     <img class="hero-image" 
          src="https://raw.githubusercontent.com/STE2025LLC/STE_LLC_WEB/refs/heads/main/ImagenPortada.webp" 
-         alt="Imagen Portada"
+         alt="Imagen Portada - Sistemas de Trading Eficientes LLC"
          width="800"
          height="400"
          loading="lazy">
@@ -569,10 +581,22 @@
       <form id="contactForm" action="https://formspree.io/f/xkgjlqnr" method="POST">
         <input type="hidden" name="_subject" value="Nuevo mensaje desde la web">
         <input type="hidden" name="_gotcha">
+        <input type="hidden" name="_honey" value="">
         
-        <input type="text" name="name" placeholder="Tu nombre" required>
-        <input type="email" name="email" placeholder="Tu email" required>
-        <textarea name="message" placeholder="Tu mensaje" required></textarea>
+        <input type="text" name="name" placeholder="Tu nombre" required title="Por favor, ingresa tu nombre">
+        <input type="email" name="email" placeholder="Tu email" required title="Por favor, ingresa un email válido">
+        <select name="interest" required title="Por favor, selecciona una opción">
+          <option value="" disabled selected>¿En qué estás interesado?</option>
+          <option value="trading_manual">Trading Manual</option>
+          <option value="trading_algoritmico">Trading Algorítmico</option>
+          <option value="gestion_riesgo">Gestión de Riesgo</option>
+          <option value="psicologia_trader">Psicología del Trader</option>
+          <option value="otros">Otros</option>
+        </select>
+        <textarea name="message" placeholder="Tu mensaje" required title="Por favor, escribe tu mensaje"></textarea>
+        
+        <!-- reCAPTCHA v2 -->
+        <div class="g-recaptcha" data-sitekey="6LcpgBwrAAAAAJGX3hxe5bIW_S0jOtH37RyYKhNG"></div>
         
         <button type="submit" id="submitBtn">Enviar mensaje</button>
         <button type="button" onclick="closeForm()">Cancelar</button>
@@ -589,7 +613,10 @@
     </div>
   </div>
 
+  <!-- Scripts -->
   <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+  <!-- reCAPTCHA API -->
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   <script>
     // Objeto de traducciones optimizado
     const translations = {
@@ -612,6 +639,14 @@
         formTitle: "Contact Us",
         placeholderName: "Your Name",
         placeholderEmail: "Your Email",
+        placeholderInterest: "What are you interested in?",
+        interestOptions: {
+          trading_manual: "Manual Trading",
+          trading_algoritmico: "Algorithmic Trading",
+          gestion_riesgo: "Risk Management",
+          psicologia_trader: "Trader Psychology",
+          otros: "Other"
+        },
         placeholderMessage: "Your Message",
         requiredField: "Please fill out this field",
         submitBtn: "Send Message",
@@ -645,6 +680,14 @@
         formTitle: "Contáctenos",
         placeholderName: "Tu nombre",
         placeholderEmail: "Tu email",
+        placeholderInterest: "¿En qué estás interesado?",
+        interestOptions: {
+          trading_manual: "Trading Manual",
+          trading_algoritmico: "Trading Algorítmico",
+          gestion_riesgo: "Gestión de Riesgo",
+          psicologia_trader: "Psicología del Trader",
+          otros: "Otros"
+        },
         placeholderMessage: "Tu mensaje",
         requiredField: "Por favor, completa este campo",
         submitBtn: "Enviar mensaje",
@@ -695,15 +738,26 @@
       // Actualizar placeholders y mensajes de validación
       const nameField = document.querySelector('#formPopup input[name="name"]');
       const emailField = document.querySelector('#formPopup input[name="email"]');
+      const interestField = document.querySelector('#formPopup select[name="interest"]');
       const messageField = document.querySelector('#formPopup textarea');
 
       nameField.placeholder = t.placeholderName;
       emailField.placeholder = t.placeholderEmail;
+      interestField.placeholder = t.placeholderInterest;
       messageField.placeholder = t.placeholderMessage;
+
+      // Actualizar opciones del select
+      const options = interestField.querySelectorAll('option');
+      options[1].textContent = t.interestOptions.trading_manual;
+      options[2].textContent = t.interestOptions.trading_algoritmico;
+      options[3].textContent = t.interestOptions.gestion_riesgo;
+      options[4].textContent = t.interestOptions.psicologia_trader;
+      options[5].textContent = t.interestOptions.otros;
 
       // Configurar mensajes de validación personalizados
       nameField.title = t.requiredField;
       emailField.title = t.requiredField;
+      interestField.title = t.requiredField;
       messageField.title = t.requiredField;
 
       nameField.oninvalid = (e) => {
@@ -712,12 +766,16 @@
       emailField.oninvalid = (e) => {
         e.target.setCustomValidity(t.requiredField);
       };
+      interestField.oninvalid = (e) => {
+        e.target.setCustomValidity(t.requiredField);
+      };
       messageField.oninvalid = (e) => {
         e.target.setCustomValidity(t.requiredField);
       };
 
       nameField.oninput = (e) => e.target.setCustomValidity('');
       emailField.oninput = (e) => e.target.setCustomValidity('');
+      interestField.oninput = (e) => e.target.setCustomValidity('');
       messageField.oninput = (e) => e.target.setCustomValidity('');
     }
 
@@ -764,6 +822,13 @@
     document.getElementById("contactForm").addEventListener("submit", function(e) {
       e.preventDefault();
       
+      // Verificar reCAPTCHA
+      const response = grecaptcha.getResponse();
+      if(response.length == 0) {
+        alert(translations[currentLanguage].requiredField);
+        return false;
+      }
+
       const form = e.target;
       const submitBtn = document.getElementById("submitBtn");
       const originalBtnText = submitBtn.textContent;
@@ -787,6 +852,7 @@
           showConfirmation();
           closeForm();
           form.reset();
+          grecaptcha.reset();
         } else {
           throw new Error('Error en el envío');
         }
@@ -799,6 +865,7 @@
             showConfirmation();
             closeForm();
             form.reset();
+            grecaptcha.reset();
             return;
           }
         }
@@ -812,9 +879,16 @@
 
     document.addEventListener("DOMContentLoaded", function() {
       updateContent();
+      
+      // Prevenir spam en el campo honey
+      document.querySelector('input[name="_honey"]').addEventListener('input', function(e) {
+        if(e.target.value) {
+          // Si un bot llena este campo oculto, no enviar el formulario
+          document.getElementById("contactForm").removeAttribute('action');
+        }
+      });
     });
   </script>
-  <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9336b4a3a8aebfe7',t:'MTc0NTE3Mzc1MC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c(); createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
   <script>
     // Desactivar el clic derecho
     document.addEventListener('contextmenu', function(e) {
