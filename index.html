@@ -489,7 +489,7 @@
     "name": "Sistemas de Trading Eficientes LLC",
     "url": "https://sistemasdetradingeficientes.com",
     "logo": "https://raw.githubusercontent.com/STE2025LLC/STE_LLC_WEB/refs/heads/main/Logo%20Blanco%20512x512.webp",
-    "description": "Especialistas en sistemas de trading manual y algorítmico con sede en EE.UU.",
+    "description": "Especialistas en sistemas de  y algorítmico con sede en EE.UU.",
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "30 N Gould St",
@@ -523,7 +523,7 @@
       <span class="company-name-line">Sistemas de</span>
       <span class="company-name-line">Trading Eficientes LLC</span>
     </h1>
-    <p id="tagline">Trading Manual y Algorítmico</p>
+    <p id="tagline"> y Algorítmico</p>
   </header>
 
   <!-- SECCIÓN HERO Y SOBRE NOSOTROS CON IMAGEN OPTIMIZADA -->
@@ -544,7 +544,7 @@
   <section>
     <h2 id="servicesTitle">Nuestros Servicios</h2>
     <ul>
-      <li id="service1">Sistemas de trading manual y algorítmico personalizados.</li>
+      <li id="service1">Sistemas de  y algorítmico personalizados.</li>
       <li id="service2">Gestión de riesgos y análisis de rendimiento.</li>
       <li id="service3">Investigación de mercados y consultoría.</li>
       <li id="service4">Soluciones de asignación estratégica y backtesting.</li>
@@ -585,14 +585,6 @@
         
         <input type="text" name="name" placeholder="Tu nombre" required title="Por favor, ingresa tu nombre">
         <input type="email" name="email" placeholder="Tu email" required title="Por favor, ingresa un email válido">
-        <select name="interest" required title="Por favor, selecciona una opción">
-          <option value="" disabled selected>¿En qué estás interesado?</option>
-          <option value="trading_manual">Trading Manual</option>
-          <option value="trading_algoritmico">Trading Algorítmico</option>
-          <option value="gestion_riesgo">Gestión de Riesgo</option>
-          <option value="psicologia_trader">Psicología del Trader</option>
-          <option value="otros">Otros</option>
-        </select>
         <textarea name="message" placeholder="Tu mensaje" required title="Por favor, escribe tu mensaje"></textarea>
         
         <!-- reCAPTCHA v2 -->
@@ -639,14 +631,6 @@
         formTitle: "Contact Us",
         placeholderName: "Your Name",
         placeholderEmail: "Your Email",
-        placeholderInterest: "What are you interested in?",
-        interestOptions: {
-          trading_manual: "Manual Trading",
-          trading_algoritmico: "Algorithmic Trading",
-          gestion_riesgo: "Risk Management",
-          psicologia_trader: "Trader Psychology",
-          otros: "Other"
-        },
         placeholderMessage: "Your Message",
         requiredField: "Please fill out this field",
         submitBtn: "Send Message",
@@ -680,14 +664,6 @@
         formTitle: "Contáctenos",
         placeholderName: "Tu nombre",
         placeholderEmail: "Tu email",
-        placeholderInterest: "¿En qué estás interesado?",
-        interestOptions: {
-          trading_manual: "Trading Manual",
-          trading_algoritmico: "Trading Algorítmico",
-          gestion_riesgo: "Gestión de Riesgo",
-          psicologia_trader: "Psicología del Trader",
-          otros: "Otros"
-        },
         placeholderMessage: "Tu mensaje",
         requiredField: "Por favor, completa este campo",
         submitBtn: "Enviar mensaje",
@@ -736,28 +712,19 @@
       document.getElementById('scrollTopBtn').textContent = t.scrollTop;
 
       // Actualizar placeholders y mensajes de validación
+      
       const nameField = document.querySelector('#formPopup input[name="name"]');
       const emailField = document.querySelector('#formPopup input[name="email"]');
-      const interestField = document.querySelector('#formPopup select[name="interest"]');
       const messageField = document.querySelector('#formPopup textarea');
 
       nameField.placeholder = t.placeholderName;
       emailField.placeholder = t.placeholderEmail;
-      interestField.placeholder = t.placeholderInterest;
       messageField.placeholder = t.placeholderMessage;
-
-      // Actualizar opciones del select
-      const options = interestField.querySelectorAll('option');
-      options[1].textContent = t.interestOptions.trading_manual;
-      options[2].textContent = t.interestOptions.trading_algoritmico;
-      options[3].textContent = t.interestOptions.gestion_riesgo;
-      options[4].textContent = t.interestOptions.psicologia_trader;
-      options[5].textContent = t.interestOptions.otros;
 
       // Configurar mensajes de validación personalizados
       nameField.title = t.requiredField;
       emailField.title = t.requiredField;
-      interestField.title = t.requiredField;
+      
       messageField.title = t.requiredField;
 
       nameField.oninvalid = (e) => {
@@ -766,16 +733,13 @@
       emailField.oninvalid = (e) => {
         e.target.setCustomValidity(t.requiredField);
       };
-      interestField.oninvalid = (e) => {
-        e.target.setCustomValidity(t.requiredField);
-      };
+      
       messageField.oninvalid = (e) => {
         e.target.setCustomValidity(t.requiredField);
       };
 
       nameField.oninput = (e) => e.target.setCustomValidity('');
       emailField.oninput = (e) => e.target.setCustomValidity('');
-      interestField.oninput = (e) => e.target.setCustomValidity('');
       messageField.oninput = (e) => e.target.setCustomValidity('');
     }
 
@@ -897,3 +861,4 @@
   </script>
 </body>
 </html>
+
