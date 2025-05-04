@@ -597,6 +597,7 @@
   </div>
 
   <!-- POPUP DE CONFIRMACIÓN -->
+  
   <div class="confirmation-popup" id="confirmationPopup">
     <div class="confirmation-content">
       <h2 id="confirmTitle">¡Gracias!</h2>
@@ -606,10 +607,14 @@
   </div>
 
   <!-- Scripts -->
+  
   <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+  
   <!-- reCAPTCHA API -->
+  
   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   <script>
+  
     // Objeto de traducciones optimizado
     const translations = {
       en: {
@@ -633,6 +638,7 @@
         placeholderEmail: "Your Email",
         placeholderMessage: "Your Message",
         requiredField: "Please fill out this field",
+        requiredField: "Please verify that you are not a robot",
         submitBtn: "Send Message",
         cancelBtn: "Cancel",
         sendingMessage: "Sending...",
@@ -666,6 +672,7 @@
         placeholderEmail: "Tu email",
         placeholderMessage: "Tu mensaje",
         requiredField: "Por favor, completa este campo",
+        requiredField: "Por favor, verifica que no eres un robot",
         submitBtn: "Enviar mensaje",
         cancelBtn: "Cancelar",
         sendingMessage: "Enviando...",
@@ -784,62 +791,80 @@
     });
 
     document.getElementById("contactForm").addEventListener("submit", function(e) {
-      e.preventDefault();
-      
-      // Verificar reCAPTCHA
-      const response = grecaptcha.getResponse();
-      if(response.length == 0) {
-        alert(translations[currentLanguage].requiredField);
+    e.preventDefault();
+    
+    // Verificar reCAPTCHA
+    const response = grecaptcha.getResponse();
+    if (response.length == 0) {
+        // Mostrar mensaje de error debajo del reCAPTCHA
+        const errorElement = document.createElement('div');
+        errorElement.id = 'recaptchaError';
+        errorElement.style.color = 'red';
+        errorElement.style.marginBottom = '15px';
+        errorElement.style.textAlign = 'center';
+        errorElement.textContent = translations[currentLanguage].requiredField;
+        
+        // Eliminar mensaje anterior si existe
+        const existingError = document.getElementById('recaptchaError');
+        if (existingError) {
+            existingError.remove();
+        }
+        
+        // Insertar mensaje de error debajo del reCAPTCHA
+        const recaptchaContainer = document.querySelector('.g-recaptcha');
+        recaptchaContainer.parentNode.insertBefore(errorElement, recaptchaContainer.nextSibling);
+        
         return false;
-      }
+    }
 
-      const form = e.target;
-      const submitBtn = document.getElementById("submitBtn");
-      const originalBtnText = submitBtn.textContent;
-      const t = translations[currentLanguage];
-      
-      submitBtn.textContent = t.sendingMessage;
-      submitBtn.disabled = true;
-      
-      const urlWithCacheBuster = `${form.action}?t=${Date.now()}`;
-      
-      fetch(urlWithCacheBuster, {
+    // Resto del código (no lo modifiques)
+    const form = e.target;
+    const submitBtn = document.getElementById("submitBtn");
+    const originalBtnText = submitBtn.textContent;
+    const t = translations[currentLanguage];
+    
+    submitBtn.textContent = t.sendingMessage;
+    submitBtn.disabled = true;
+    
+    const urlWithCacheBuster = `${form.action}?t=${Date.now()}`;
+    
+    fetch(urlWithCacheBuster, {
         method: "POST",
         body: new FormData(form),
         headers: {
-          'Accept': 'application/json',
-          'Cache-Control': 'no-cache'
+            'Accept': 'application/json',
+            'Cache-Control': 'no-cache'
         }
-      })
-      .then(response => {
+    })
+    .then(response => {
         if (response.ok) {
-          showConfirmation();
-          closeForm();
-          form.reset();
-          grecaptcha.reset();
-        } else {
-          throw new Error('Error en el envío');
-        }
-      })
-      .catch(error => {
-        console.error("Error con fetch:", error);
-        if (navigator.sendBeacon) {
-          const formData = new FormData(form);
-          if (navigator.sendBeacon(form.action, formData)) {
             showConfirmation();
             closeForm();
             form.reset();
             grecaptcha.reset();
-            return;
-          }
+        } else {
+            throw new Error('Error en el envío');
+        }
+    })
+    .catch(error => {
+        console.error("Error con fetch:", error);
+        if (navigator.sendBeacon) {
+            const formData = new FormData(form);
+            if (navigator.sendBeacon(form.action, formData)) {
+                showConfirmation();
+                closeForm();
+                form.reset();
+                grecaptcha.reset();
+                return;
+            }
         }
         alert(t.errorMessage);
-      })
-      .finally(() => {
+    })
+    .finally(() => {
         submitBtn.textContent = originalBtnText;
         submitBtn.disabled = false;
-      });
     });
+});
 
     document.addEventListener("DOMContentLoaded", function() {
       updateContent();
